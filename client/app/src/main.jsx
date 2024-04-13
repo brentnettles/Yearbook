@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider, useNavigate } from 'react-router-dom';
+import { UserProvider } from './CreateUserContext.jsx'; // Import the UserProvider
 import App from './App.jsx';
 import Home from './components/Home.jsx';
 import Login from './components/Login';
@@ -9,6 +10,7 @@ import Yearbook from './components/Yearbook.jsx';
 import StudentDetails from './components/StudentDetails.jsx';
 import SignatureForm from './components/SignatureForm.jsx';
 import ErrorPage from './components/ErrorPage.jsx';
+import './App.css';
 import { userLoader, cohortLoader, yearbookLoader, studentDetailsLoader, createSignatureLoader } from './loaders.js';
 
 const router = createBrowserRouter([
@@ -28,10 +30,12 @@ const router = createBrowserRouter([
 ]);
 
 function LoginWrapper() {
-  const navigate = useNavigate(); // useNavigate is called inside a functional component
+  const navigate = useNavigate();
+  const { setUser } = useUser(); // Access the setUser method from context
 
-  const handleLoginSuccess = (email, password) => {
-    console.log("Login Successful with:", email, password);
+  const handleLoginSuccess = (userData) => {
+    console.log("Login Successful with:", userData);
+    setUser(userData); // Set user in the global context
     navigate('/'); // Redirect to home page on successful login
   };
 
@@ -40,6 +44,8 @@ function LoginWrapper() {
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <UserProvider> {/* Wrap the RouterProvider inside the UserProvider */}
+      <RouterProvider router={router} />
+    </UserProvider>
   </React.StrictMode>
 );

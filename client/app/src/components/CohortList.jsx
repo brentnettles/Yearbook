@@ -1,5 +1,9 @@
 import React from 'react';
-import { useLoaderData, useOutletContext } from 'react-router-dom';
+import { useLoaderData, useOutletContext, Link } from 'react-router-dom';
+
+
+//Only using this to fetch and link for StudentDetails
+
 
 export default function CohortList() {
   const [user] = useOutletContext();
@@ -15,7 +19,7 @@ export default function CohortList() {
       <ul>
         {cohorts.map(cohort => (
           <li key={cohort.id}>
-            <a href={`/yearbook/${cohort.id}`}>{cohort.location}</a>
+            <Link to={`/yearbook/${cohort.id}`}>{cohort.location}</Link>
           </li>
         ))}
       </ul>

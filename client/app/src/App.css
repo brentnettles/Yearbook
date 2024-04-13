@@ -1,42 +1,108 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+/* index.css */
+body {
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+  color: #333;
+  background-color: #f8f9fa;
+  margin: 0;
+  padding: 0;
+}
+
+header, .footer {
+  background: #007bff;
+  color: #ffffff;
+  padding: 10px 20px;
   text-align: center;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+h1, h2, h3, h4, h5, h6 {
+  color: #333;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+a {
+  color: #007bff;
+  text-decoration: none;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+a:hover {
+  color: #0056b3;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Flex container for items */
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  padding: 20px;
 }
 
 .card {
-  padding: 2em;
+  background: #ffffff;
+  box-shadow: 0 0 15px rgba(0,0,0,0.2);
+  padding: 20px;
+  border-radius: 8px;
+  transition: transform 0.3s ease-in-out;
+  width: calc(33.333% - 40px); /* Subtract the gap divided by the number of items per row */
 }
 
-.read-the-docs {
-  color: #888;
+.card:hover {
+  transform: translateY(-5px);
+}
+
+.footer {
+  text-align: center;
+  padding: 20px;
+}
+
+/* Responsive layout adjustments */
+@media (max-width: 992px) {
+  .card {
+    width: calc(50% - 40px); /* Two items per row */
+  }
+}
+
+@media (max-width: 768px) {
+  .card {
+    width: 100%; /* One item per row */
+  }
+}
+
+/* Gallery specific styles */
+.yearbook-gallery {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: space-around;
+  border: 1px solid red; /* Temporary to see the layout */
+}
+
+.yearbook-item {
+  flex: 1 1 200px; /* Adjust this value based on your design needs */
+  margin: 10px;
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.1);
+  transition: box-shadow 0.3s ease-in-out;
+  border: 1px solid blue; /* Temporary to see the layout */
+}
+
+.yearbook-item:hover {
+  box-shadow: 0 12px 24px 0 rgba(0,0,0,0.2);
+}
+
+.yearbook-image {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 4px;
 }

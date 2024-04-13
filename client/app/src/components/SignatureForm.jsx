@@ -1,28 +1,29 @@
 import React, { useState } from 'react';
+import { useUser } from '../CreateUserContext'; // Import the useUser hook
 
-function SignatureForm() {
-  // State to store the signature input value
+function SignatureForm({ studentId, onNewSignature }) {
   const [signature, setSignature] = useState('');
+  const { user } = useUser(); // Access the current user
 
-  // Function to handle form submission
   const handleSubmit = async (event) => {
     event.preventDefault();
+    const authorId = user ? user.user_id : null;
 
     try {
-      // Send the signature data to your backend API
-      const response = await fetch('http://your-backend-api/signatures', {
+      const response = await fetch('http://127.0.0.1:5555/api/signatures', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ message: signature }),
+        body: JSON.stringify({ message: signature, studentId, authorId }),
       });
 
       if (response.ok) {
-        // Handle success
+        const newSignature = await response.json(); // Assuming the server returns the saved signature
         console.log('Signature submitted successfully');
+        onNewSignature(newSignature);
+        setSignature('');
       } else {
-        // Handle error
         console.error('Failed to submit signature');
       }
     } catch (error) {

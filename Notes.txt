@@ -1,0 +1,116 @@
+possible needs to update the backend to include the author / current user : 
+
+
+To display the author's name along with the signature in the `StudentDetails` page, you'll need to adjust how signatures are handled to include author information. This involves both backend changes to include the author's name in the signature data returned by the API and frontend adjustments to display this information.
+
+### Backend Changes
+Ensure that your backend API is including the author's name when it returns signatures. This might involve adjusting the database query to join user data with signatures and modifying the API response to include this. For instance, when a signature is saved, the backend should also return the author's name along with the message:
+
+```python
+# This is a simplified example assuming you have a Flask backend
+@app.route('/api/signatures', methods=['POST'])
+def create_signature():
+    # existing code to handle the POST request
+    data = request.get_json()
+    new_signature = Signature(
+        message=data['message'],
+        student_id=data['studentId'],
+        author_id=data['authorId']
+    )
+    db.session.add(new_signature)
+    db.session.commit()
+    return jsonify({
+        'id': new_signature.id,
+        'message': new_signature.message,
+        'authorName': new_signature.author.username  # Assuming the relationship is set up
+    }), 201
+```
+
+### Frontend Changes
+Modify the `SignatureForm` component to handle the new signature data, including the author's name. Also, ensure the `StudentDetails` component can display this:
+
+**Adjusting the SignatureForm Submission:**
+
+```jsx
+function SignatureForm({ studentId, onNewSignature }) {
+  const [signature, setSignature] = useState('');
+  const { user } = useUser(); // Use this to get the author's name directly if needed
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const authorId = user ? user.user_id : null;
+
+    try {
+      const response = await fetch('http://127.0.0.1:5555/api/signatures', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message: signature, studentId, authorId }),
+      });
+
+      if (response.ok) {
+        const newSignature = await response.json();
+        onNewSignature({...newSignature, authorName: user.username}); // Include author's name when updating state
+        setSignature('');
+      } else {
+        console.error('Failed to submit signature');
+      }
+    } catch (error) {
+      console.error('Error submitting signature:', error);
+    }
+  };
+
+  return (
+    <div>
+      <h2>Oh the memories...</h2>
+      <form onSubmit={handleSubmit}>
+        <label>Signature:
+          <input type="text" value={signature} onChange={e => setSignature(e.target.value)} />
+        </label>
+        <button type="submit">Submit</button>
+      </form>
+    </div>
+  );
+}
+```
+
+**Displaying Signatures in StudentDetails:**
+
+```jsx
+import React from 'react';
+import { useLoaderData } from 'react-router-dom';
+import SignatureForm from './SignatureForm';
+
+export default function StudentDetails() {
+  const student = useLoaderData();
+
+  if (!student) {
+    return <p>Loading...</p>;
+  }
+
+  const imageUrl = `http://127.0.0.1:5555${student.img}`;
+
+  return (
+    <>
+      <h2>Student Details</h2>
+      <img src={imageUrl} alt={student.name} />
+      <p>Name: {student.name}</p>
+      <p>Quote: {student.quote}</p>
+      <div>
+        <h3>Signatures:</h3>
+        <ul>
+          {student.signatures.map((sig, index) => (
+            <li key={index}>{sig.message} - <em>by {sig.authorName}</em></li>  // Display author name
+          ))}
+        </ul>
+      </div>
+      <SignatureForm studentId={student.id} onNewSignature={(sig) => {
+        // Assume the student object in the state is updated similarly
+        student.signatures.push(sig);
+      }} />
+    </>
+  );
+}
+```
+
+### Conclusion
+These changes ensure that each signature displayed in the `StudentDetails` page includes the author's name, providing a clear context for each entry. Make sure your backend properly secures and validates user input to prevent security issues like injection attacks.
