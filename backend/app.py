@@ -1,47 +1,49 @@
-"""
-One way of running the app:
-flask --app src/app.py --debug run --port 5555
-
-
-We can also use environment variables:
-export FLASK_APP=src/app.py  # this is a path, make sure it is correct!
-export FLASK_RUN_PORT=5555
-export FLASK_DEBUG=1
-
-Then we just need to do:
-flask run
-"""
-import os
-
-from flask import Flask, request, session
+from flask import Flask, session, request, send_from_directory
 from flask_migrate import Migrate
 from flask_cors import CORS
-from models import db, Student, Cohort
+from models import db, Student, Cohort, Signature
+import os
 
+# Setup Flask app and specify the absolute path to the static folder dynamically
+app = Flask(__name__, static_folder=os.path.join(os.getcwd(), 'assets'))
 
-app = Flask(__name__)
-# set the db connection string
+app.secret_key = '123'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
-# initialize the sqlalchemy db
 db.init_app(app)
-# initialize alembic (migration framework)
 Migrate(app, db)
-# initialize CORS
-CORS(app, supports_credentials=True)
+
+# Correct CORS setup to allow credentials
+CORS(app, supports_credentials=True, resources={r"*": {"origins": "http://localhost:5173"}})
+
+
+HARDCODED_USER = {
+    'user_id': 1,
+    'username': 'Test_User'
+}
 
 @app.route("/")
 def index():
     return "<h1>| Flatiron Yearbook | </h1>"
 
-@app.route("/cohorts", methods=["GET"])
+@app.route('/assets/<path:path>')
+def send_assets(path):
+    assets_dir = os.path.join(os.getcwd(), 'assets')
+    return send_from_directory(assets_dir, path)
+
+@app.route("/check_session")
+def check_session():
+    return HARDCODED_USER, 200
+    
+# No need to handle login/logout endpoints for now
+
+@app.route("/api/cohorts", methods=["GET"])
 def get_cohorts():
     cohorts = Cohort.query.all()
     return [cohort.to_dict() for cohort in cohorts], 200
 
-
-@app.route("/yearbook/<int:cohort_id>", methods=["GET"])
+@app.route("/api/yearbook/<int:cohort_id>", methods=["GET"])
 def get_yearbook(cohort_id):
     cohort = Cohort.query.get_or_404(cohort_id)
     students = cohort.students
@@ -51,47 +53,58 @@ def get_yearbook(cohort_id):
     for student in students:
         student_data = {
             "id": student.id,
+            "name": student.name,
             "img": student.img
         }
         student_info.append(student_data)
 
     return student_info, 200
 
-@app.route("/student/<int:student_id>", methods=["GET"])
+@app.route("/api/student/<int:student_id>", methods=["GET"])
 def get_student(student_id):
     student = Student.query.get(student_id)
     if not student:
         return {"error": "Student not found"}, 404
-    student_info = {
-        "name": student.email,  # Assuming the email is the name
+    
+    student_info = student.to_dict() if hasattr(student, 'to_dict') else {
+        "name": student.email,
         "img": student.img,
         "quote": student.quote,
         "signatures": student.signatures
     }
+
     return student_info, 200
 
-@app.route("/sign_yearbook/<int:student_id>", methods=["PATCH"])
-def sign_yearbook(student_id):
-    data = request.get_json()
-    signatures = data.get("signatures")
+@app.route("/api/signatures", methods=["POST"])
+def create_signature():
+    if request.method == "POST":
+        # Parse JSON data from the request body
+        json_data = request.get_json()
 
-    if not signatures:
-        return {"error": "Message is required"}, 400
-    
-    student = db.session.get(Student, student_id)
-    if not student:
-        return {"error": "Student not found"}, 404
+        # Create a new signature object using the JSON data
+        new_signature = Signature(
+            message=json_data.get('message'),
+            # Add any other fields you need for the signature
+        )
 
-    signature_author = "Mr. Jerry"  
+        # Add the new signature to the database session
+        db.session.add(new_signature)
+        
+        try:
+            # Commit the changes to the database
+            db.session.commit()
+            # Return a success response with the newly created signature
+            return {
+                "id": new_signature.id,
+                "message": new_signature.message,
+                # Add other fields if needed
+            }, 201
+        except Exception as e:
+            # Rollback changes if an error occurs
+            db.session.rollback()
+            # Return an error response
+            return {"error": str(e)}, 500
 
-    student.signatures += f"\n- {signatures} by {signature_author}"
-    
-    for field in data:
-        setattr(student, field, data[field])
-
-    db.session.commit()
-    
-    return student.to_dict(), 200
 
 if __name__ == "__main__":
     app.run(port=5555, debug=True)
