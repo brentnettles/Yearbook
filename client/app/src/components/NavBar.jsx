@@ -3,24 +3,18 @@ import { Link } from 'react-router-dom';
 
 const NavBar = () => {
   return (
-    <nav>
-      <ul>
-        <li>
-          <Link to="/">Home</Link>
-        </li>
-        <li>
-          <Link to="/cohorts">Cohorts</Link>
-        </li>
-        <li>
-          <Link to="/instructors">Instructors</Link>
-        </li>
-        <li>
-          <Link to="/login">Login</Link>
-        </li>
-        <li>
-          <Link to="/logout">Logout</Link>
-        </li>
-      </ul>
+    <nav className="navbar">
+      <div className="nav-links">
+        <Link to="/">Home</Link>
+        <Link to="/cohorts">Cohorts</Link>
+        <Link to="/instructors">Instructors</Link>
+        <Link to="/login">Login</Link>
+        <Link to="/logout">Logout</Link>
+      </div>
+      <div className="expanded-content">
+        <p>Test 'expand content' </p>
+        
+      </div>
     </nav>
   );
 }

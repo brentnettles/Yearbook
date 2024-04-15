@@ -1,108 +1,90 @@
-/* index.css */
-body {
-  font-family: 'Helvetica Neue', Arial, sans-serif;
-  color: #333;
-  background-color: #f8f9fa;
+/* Global styles */
+* {
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
-header, .footer {
-  background: #007bff;
-  color: #ffffff;
-  padding: 10px 20px;
+.navbar {
+  background-color: #333;
+  overflow: hidden;
+  height: 50px; /* Set initial height for collapsed state */
+  transition: height 0.5s; /* Smooth transition for the height property */
+}
+
+/* Navbar links */
+/* Basic styling for the navbar */
+.navbar {
+  background-color: #333;
+  overflow: hidden;
+  height: 50px; /* Set initial height for collapsed state */
+  transition: height 0.5s; /* Smooth transition for the height property */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+}
+
+/* Navbar links */
+.navbar a {
+  color: #f2f2f2;
   text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  opacity: 0;
+  transition: opacity 0.5s;
+}
+
+/* Expand the navbar when hovered */
+.navbar:hover {
+  height: 200px; /* Increase height when hovered */
+}
+
+/* Show links when navbar is hovered */
+.navbar:hover a {
+  opacity: 1;
+}
+
+/* Container for expanded content */
+.expanded-content {
+  display: none; /* Hide content initially */
+}
+
+/* Show expanded content when navbar is hovered */
+.navbar:hover .expanded-content {
+  display: block;
+  padding: 20px;
+  color: white;
+}
+
+
+body {
+  font-family: 'Nunito', sans-serif;
+  font-size: 1.75rem;
+  background-color: #f4f4f4;
+  color: #333;
+  line-height: 1.6;
+  margin: 0;
+  padding: 20px;
 }
 
 h1, h2, h3, h4, h5, h6 {
-  color: #333;
+  font-weight: 600;
 }
 
 a {
-  color: #007bff;
+  color: #333;
   text-decoration: none;
 }
 
 a:hover {
-  color: #0056b3;
+  text-decoration: underline;
 }
 
 ul {
   list-style: none;
-  padding: 0;
 }
 
-img {
-  max-width: 100%;
-  height: auto;
-  display: block;
-}
-
-/* Flex container for items */
-.container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-  gap: 20px;
-  padding: 20px;
-}
-
-.card {
-  background: #ffffff;
-  box-shadow: 0 0 15px rgba(0,0,0,0.2);
-  padding: 20px;
-  border-radius: 8px;
-  transition: transform 0.3s ease-in-out;
-  width: calc(33.333% - 40px); /* Subtract the gap divided by the number of items per row */
-}
-
-.card:hover {
-  transform: translateY(-5px);
-}
-
-.footer {
-  text-align: center;
-  padding: 20px;
-}
-
-/* Responsive layout adjustments */
-@media (max-width: 992px) {
-  .card {
-    width: calc(50% - 40px); /* Two items per row */
-  }
-}
-
-@media (max-width: 768px) {
-  .card {
-    width: 100%; /* One item per row */
-  }
-}
-
-/* Gallery specific styles */
-.yearbook-gallery {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-  justify-content: space-around;
-  border: 1px solid red; /* Temporary to see the layout */
-}
-
-.yearbook-item {
-  flex: 1 1 200px; /* Adjust this value based on your design needs */
-  margin: 10px;
-  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.1);
-  transition: box-shadow 0.3s ease-in-out;
-  border: 1px solid blue; /* Temporary to see the layout */
-}
-
-.yearbook-item:hover {
-  box-shadow: 0 12px 24px 0 rgba(0,0,0,0.2);
-}
-
-.yearbook-image {
-  width: 100%;
-  height: auto;
-  display: block;
-  border-radius: 4px;
+button {
+  font-family: 'Nunito', sans-serif;
 }
