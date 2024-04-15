@@ -6,8 +6,10 @@ const Home = () => {
 
   return (
     <div className='home-background'>
-      <h2>Home Page</h2>
-      {user && user.username ? <p>Welcome {user.username}!</p> : <p>Please log in to view this page.</p>}
+      <h1>FLATIRON SCHOOL</h1>
+      <h2>Student Yearbooks</h2>
+
+      {user && user.username ? <p>Welcome Back, {user.username}!</p> : <p>Please log in to view this page.</p>}
     </div>
   );
 }
