@@ -6,12 +6,7 @@ import { useLoaderData, useOutletContext, Link } from 'react-router-dom';
 
 
 export default function CohortList() {
-  const [user] = useOutletContext();
-  const cohorts = useLoaderData();
-
-  if (!user || !user.username) {
-    return <p>Must be logged in to view this page</p>;
-  }
+  const cohorts = useLoaderData() || [];  // Default to an empty array if no data
 
   return (
     <>

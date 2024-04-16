@@ -1,37 +1,37 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useUser } from '../CreateUserContext'; // Adjust the path as necessary
 
 const Login = () => {
     const [email, setEmail] = useState('');
     const [msg, setMsg] = useState('');
     const [error, setError] = useState(null);
     const navigate = useNavigate();
+    const { setUser } = useUser();
 
     const handleLogin = async () => {
-        try {
+      try {
           const response = await fetch('http://localhost:5555/api/login', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ email })
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ email })
           });
-
-            if (!response.ok) {
-                const errorData = await response.json();
-                setError('Login failed: ' + (errorData.error || 'User not found'));
-                setMsg('');
-            } else {
-                const userData = await response.json();
-                setMsg('Login successful');
-                setError('');
-                console.log(`You are logged in as: ${userData.user.name}`);
-                navigate('/'); 
-            }
-        } catch (error) {
-            console.error('Login error:', error);
-            setError('An error occurred during login');
-        }
+  
+          if (!response.ok) {
+              const errorData = await response.json();
+              setError('Login failed: ' + (errorData.error || 'User not found'));
+              setMsg('');
+          } else {
+              const userData = await response.json();
+              setUser(userData.user);  // Set user in context
+              setMsg('Login successful');
+              setError('');
+              navigate('/'); // Redirect to the home page after a successful login
+          }
+      } catch (error) {
+          console.error('Login error:', error);
+          setError('An error occurred during login');
+      }
     };
 
     const handleSubmit = (e) => {
