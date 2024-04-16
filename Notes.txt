@@ -1,3 +1,17 @@
+npm install react-slick slick-carousel
+
+for the react-slick I had to override slick font paths : 
+@font-face {
+  font-family: 'slick';
+  font-weight: normal;
+  font-style: normal;
+  src: url('/fonts/slick.eot');
+  src: url('/fonts/slick.eot?#iefix') format('embedded-opentype'),
+       url('/fonts/slick.woff') format('woff'),
+       url('/fonts/slick.ttf') format('truetype'),
+       url('/fonts/slick.svg#slick') format('svg');
+}
+
 possible needs to update the backend to include the author / current user : 
 
 
