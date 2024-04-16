@@ -6,11 +6,10 @@ export default defineConfig({
   plugins: [react()],
   server: {
     proxy: {
-      
       '/api': {
         target: 'http://localhost:5555', 
         changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api/, '') //
+        rewrite: path => path.replace(/^\/api/, '/')
       }
     }
   }

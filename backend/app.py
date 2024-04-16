@@ -2,10 +2,12 @@ from flask import Flask, session, request, send_from_directory
 from flask_migrate import Migrate
 from flask_cors import CORS
 from models import db, Student, Cohort, Signature
+from flask_bcrypt import Bcrypt
 import os
 
 # Setup Flask app and specify the absolute path to the static folder dynamically
 app = Flask(__name__, static_folder=os.path.join(os.getcwd(), 'assets'))
+bcrypt = Bcrypt(app)
 
 app.secret_key = '123'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app.db'
@@ -22,6 +24,23 @@ HARDCODED_USER = {
     'user_id': 1,
     'username': 'Test_User'
 }
+
+@app.route("/api/login", methods=["POST"])
+def login():
+    data = request.get_json()
+    email = data.get('email')
+
+    if not email:
+        return {"error": "Email is required"}, 400
+
+    student = Student.query.filter_by(email=email).first()
+
+    if student:
+        # If the student exists, login is successful
+        return {"message": "Login successful", "user": student.to_dict()}, 200
+    else:
+        # If no student found with that email, return an error
+        return {"error": "User not found"}, 404  
 
 @app.route("/")
 def index():
