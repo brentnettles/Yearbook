@@ -1,12 +1,12 @@
 import React from 'react';
-import { useLoaderData } from 'react-router-dom';
-import { Link } from 'react-router-dom'; // Import Link
+import { useLoaderData, useNavigate } from 'react-router-dom';  // Import useNavigate
 
 export default function Yearbook() {
   const { students, cohortName } = useLoaderData();
+  const navigate = useNavigate();  // Initialize the navigate function
 
-  if (!students) {
-    return <p>Loading...</p>;
+  if (!students || students.length === 0) {
+    return <p>No students found for this cohort.</p>;
   }
 
   return (
@@ -14,12 +14,9 @@ export default function Yearbook() {
       <h1 className="cohort-name">{cohortName}</h1>
       <div className="yearbook-gallery">
         {students.map(student => (
-          <div key={student.id} className="yearbook-item">
-            {/* Wrap the image and name in a Link to the StudentDetails page */}
-            <Link to={`/student/${student.id}`}>
-              <img src={`http://127.0.0.1:5555${student.img}`} alt={student.name} />
-              <p>{student.name}</p>
-            </Link>
+          <div key={student.id} className="yearbook-item" onClick={() => navigate(`/student-card/${student.id}`)}>
+            <img src={`http://127.0.0.1:5555${student.img}`} alt={student.name} className="yearbook-image" />
+            <p>{student.name}</p>
           </div>
         ))}
       </div>

@@ -12,7 +12,7 @@ const NavBar = () => {
         <Link to="/logout">Logout</Link>
       </div>
       <div className="expanded-content">
-        <p>Test 'expand content' </p>
+       
         
       </div>
     </nav>

@@ -5,151 +5,6 @@
   padding: 0;
 }
 
-.home-background {
-  background-image: url('/images/flatiron_building.png');
-  background-size: 30% auto; /* Adjust width to 80% of the element, auto-adjust height */
-  background-position: right center;
-  height: 100vh;
-  width: 100%;
-  background-repeat: no-repeat;
-}
-
-.navbar {
-  background-color: #333;
-  overflow: hidden;
-  height: 50px; /* Set initial height for collapsed state */
-  transition: height 0.5s; /* Smooth transition for the height property */
-}
-
-/* Navbar links */
-/* Basic styling for the navbar */
-.navbar {
-  background-color: #333;
-  overflow: hidden;
-  height: 50px; /* Set initial height for collapsed state */
-  transition: height 0.5s; /* Smooth transition for the height property */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: row;
-}
-
-/* Navbar links */
-.navbar a {
-  color: #f2f2f2;
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
-  opacity: 0;
-  transition: opacity 0.5s;
-}
-
-/* Expand the navbar when hovered */
-.navbar:hover {
-  height: 200px; /* Increase height when hovered */
-}
-
-/* Show links when navbar is hovered */
-.navbar:hover a {
-  opacity: 1;
-}
-
-/* Container for expanded content */
-.expanded-content {
-  display: none; /* Hide content initially */
-}
-
-/* Show expanded content when navbar is hovered */
-.navbar:hover .expanded-content {
-  display: block;
-  padding: 20px;
-  color: white;
-}
-
-/*///////////////////////////*/
-
-/* Grid container for yearbook images */
-.yearbook-gallery {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  grid-gap: 20px;
-  padding: 20px;
-  justify-items: center;
-}
-
-/* Individual items in the yearbook grid */
-.yearbook-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background-color: #fff;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  overflow: hidden;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-}
-
-.yearbook-image {
-  width: 100%;
-  height: auto;
-  display: block;
-}
-
-.yearbook-name {
-  padding: 10px;
-  text-align: center;
-  font-size: 16px;
-  color: #333;
-}
-
-
-/*////////////////////////////////////////////*/
-
-.details-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.5); /* Semi-transparent black background */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 10;
-  cursor: pointer; /* Indicates the overlay is clickable */
-}
-
-.student-details-card {
-  background: rgba(255, 255, 255, 0.9);
-  padding: 20px;
-  border-radius: 10px;
-  width: 80%;
-  max-width: 600px;
-  max-height: 80%; /* Maximum height of the card */
-  overflow-y: auto; /* Enable scrolling within the card if content is too long */
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  z-index: 11;
-  cursor: auto; /* Normal cursor for the card to override the overlay's pointer */
-}
-
-.student-image {
-  width: 80%;
-  max-height: 60%;
-  border-radius: 5px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
-
-.student-signatures {
-  margin-top: 20px;
-}
-
-/* Responsive adjustments for smaller screens */
-@media (max-width: 600px) {
-  .yearbook-gallery {
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-  }
-}
-
 body {
   font-family: 'Nunito', sans-serif;
   font-size: 1.75rem;
@@ -179,4 +34,157 @@ ul {
 
 button {
   font-family: 'Nunito', sans-serif;
+}
+
+/* Home background */
+.home-background {
+  background-image: url('/images/flatiron_building.png');
+  background-size: 30% auto; /* Adjust width to 80% of the element, auto-adjust height */
+  background-position: right center;
+  height: 100vh;
+  width: 100%;
+  background-repeat: no-repeat;
+}
+
+/* Navbar styles */
+.navbar {
+  background-color: #333;
+  overflow: hidden;
+  height: 30px;
+  transition: height 0.5s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+}
+
+.navbar:hover {
+  height: 70px;
+}
+
+.navbar a {
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  opacity: 0;
+  transition: opacity 0.5s;
+}
+
+.navbar:hover a {
+  opacity: 1;
+}
+
+/* Expanded content styles */
+.expanded-content {
+  display: none;
+}
+
+.navbar:hover .expanded-content {
+  display: block;
+  padding: 20px;
+  color: white;
+}
+
+/* Yearbook gallery */
+.yearbook-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-gap: 20px;
+  padding: 20px;
+  justify-items: center;
+}
+
+.yearbook-item {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.yearbook-image {
+  width: 100%;
+  height: auto;
+}
+
+/* Student card overlay and card */
+.card-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.student-card {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  width: 80%;
+  max-width: 600px;
+  max-height: 80%;
+  overflow: auto;
+  position: relative;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease-in-out;
+}
+
+.student-card:hover {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.student-card img {
+  width: 100%;
+  height: auto;
+  transition: transform 0.3s ease-in-out;
+  cursor: pointer;
+}
+
+.student-card img:hover {
+  transform: scale(1.1);
+}
+
+.student-card button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(255, 255, 255, 0.8);
+  color: #333;
+  border: 1px solid #ddd;
+  cursor: pointer;
+  padding: 10px;
+  border-radius: 50%;
+}
+
+.student-card button:hover {
+  background-color: rgba(255, 255, 255, 1);
+  color: #000;
+}
+.controlLeft, .controlRight {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  z-index: 1000;  
+}
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .student-card {
+    width: 95%;
+    max-height: 95%;
+  }
+}
+
+@media (max-width: 600px) {
+  .yearbook-gallery {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  }
 }

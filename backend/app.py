@@ -48,17 +48,29 @@ def get_yearbook(cohort_id):
     cohort = Cohort.query.get_or_404(cohort_id)
     students = cohort.students
 
-    # Construct a list of dictionaries with only the desired fields
-    student_info = []
-    for student in students:
-        student_data = {
+    student_info = [
+        {
             "id": student.id,
             "name": student.name,
             "img": student.img
         }
-        student_info.append(student_data)
+        for student in students
+    ]
 
-    return student_info, 200
+    # Return both students and the name of the cohort
+    return {"students": student_info, "cohortName": cohort.location}, 200  # Using cohort.location as the name
+
+
+# @app.route("/api/yearbook/<int:cohort_id>", methods=["GET"])
+# def get_yearbook(cohort_id):
+#     cohort = Cohort.query.get_or_404(cohort_id)
+#     students = cohort.students
+
+#     student_info = [{"id": student.id, "name": student.name, "img": student.img} for student in students]
+
+#     # Include the cohort name in the response
+#     return {"students": student_info, "cohortName": cohort.name}, 200
+
 
 @app.route("/api/student/<int:student_id>", methods=["GET"])
 def get_student(student_id):
