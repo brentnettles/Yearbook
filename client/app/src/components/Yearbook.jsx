@@ -1,5 +1,6 @@
 import React from 'react';
 import { useLoaderData } from 'react-router-dom';
+import { Link } from 'react-router-dom'; // Import Link
 
 export default function Yearbook() {
   const { students, cohortName } = useLoaderData();
@@ -12,12 +13,13 @@ export default function Yearbook() {
     <div>
       <h1 className="cohort-name">{cohortName}</h1>
       <div className="yearbook-gallery">
-        {students.map((student) => (
+        {students.map(student => (
           <div key={student.id} className="yearbook-item">
-            <a href={`/student-card/${student.id}`}> {/* Change to navigate to StudentCard page */}
-              <img src={`http://127.0.0.1:5555${student.img}`} alt={student.name} className="yearbook-image" />
+            {/* Wrap the image and name in a Link to the StudentDetails page */}
+            <Link to={`/student/${student.id}`}>
+              <img src={`http://127.0.0.1:5555${student.img}`} alt={student.name} />
               <p>{student.name}</p>
-            </a>
+            </Link>
           </div>
         ))}
       </div>
