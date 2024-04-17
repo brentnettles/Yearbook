@@ -4,6 +4,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 const Yearbook = () => {
     const [cohortName, setCohortName] = useState('');
     const [students, setStudents] = useState([]);
+    const [instructors, setInstructors] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const { cohortId } = useParams();
@@ -12,12 +13,12 @@ const Yearbook = () => {
     useEffect(() => {
         const fetchYearbookData = async () => {
             try {
-                // Fetch cohort name and students data
                 const response = await fetch(`http://localhost:5555/api/yearbook/${cohortId}`);
                 if (!response.ok) throw new Error('Failed to fetch yearbook data');
                 const data = await response.json();
                 setCohortName(data.cohortName);
                 setStudents(data.students);
+                setInstructors(data.instructors);  // Set instructor data
             } catch (error) {
                 setError(error.message);
             } finally {
@@ -30,20 +31,32 @@ const Yearbook = () => {
 
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Error: {error}</p>;
-    if (students.length === 0) return <p>No students found for this cohort.</p>;
+    if (students.length === 0 && instructors.length === 0) return <p>No students or instructors found for this cohort.</p>;
 
     return (
-        <div>
-            <h1 className="cohort-name">{cohortName}</h1>
-            <div className="yearbook-gallery">
-                {students.map(student => (
-                    <div key={student.id} className="yearbook-item" onClick={() => navigate(`/student-card/${student.id}`)}>
-                        <img src={`http://127.0.0.1:5555${student.img}`} alt={student.name} className="yearbook-image" />
-                        <p>{student.name}</p>
-                    </div>
-                ))}
-            </div>
-        </div>
+      <div className='yearbook-container'>
+      <div className="header-container">
+          <div className="cohort-name">{cohortName}</div>
+          <div className="instructors-row">  {/* Right-aligned instructor(s) */}
+              {instructors.map(instructor => (
+                  <div key={instructor.id} className="yearbook-item instructor">
+                      <img src={`http://127.0.0.1:5555${instructor.img}`} alt={instructor.name} className="yearbook-image" />
+                      <p>{instructor.name}</p>
+                      <p className="quote">{instructor.quote}</p>
+                  </div>
+              ))}
+          </div>
+      </div>
+      <div className="yearbook-gallery"> {/* Separate container for students */}
+          {students.map(student => (
+              <div key={student.id} className="yearbook-item" onClick={() => navigate(`/student-card/${student.id}`)}>
+                  <img src={`http://127.0.0.1:5555${student.img}`} alt={student.name} className="yearbook-image" />
+                  <p>{student.name}</p>
+                  <p className="quote">{student.quote}</p>
+              </div>
+          ))}
+      </div>
+  </div>
     );
 };
 

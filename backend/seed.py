@@ -1,23 +1,105 @@
 from app import app, db
-from models import Student, Cohort, Signature
+from models import Student, Cohort, Signature, Instructor
 from datetime import datetime
 
 def seed_data():
-    # Delete all existing data
     print('Deleting all data...')
     with app.app_context():
         Student.query.delete()
         Cohort.query.delete()
-        Signature.query.delete()  # Add this line to delete existing Signature data
+        Signature.query.delete()
+        Instructor.query.delete()
 
-        # Add cohorts
         print('Adding cohorts...')
+
         cohorts = [
-            Cohort(start_date=datetime.strptime('2022-01-01', '%Y-%m-%d'), location='New York'),
-            Cohort(start_date=datetime.strptime('2022-02-01', '%Y-%m-%d'), location='Los Angeles'),
-            Cohort(start_date=datetime.strptime('2022-03-01', '%Y-%m-%d'), location='Chicago')
+            Cohort(start_date=datetime.strptime('2024-01-29', '%Y-%m-%d'), location='New York', name = "se012924", course = 'Software Engineering'),
+            Cohort(start_date=datetime.strptime('2024-01-29', '%Y-%m-%d'), location='New York', name = "ds012924", course = 'Data Science'),
+            Cohort(start_date=datetime.strptime('2024-03-29', '%Y-%m-%d'), location='New York', name = "se022924", course = 'Software Engineering'),
+            Cohort(start_date=datetime.strptime('2024-03-29', '%Y-%m-%d'), location='New York', name = "ds022924", course = 'Data Science'),
+            Cohort(start_date=datetime.strptime('2024-09-29', '%Y-%m-%d'), location='New York', name = "se011924", course = 'Software Engineering'),
+            Cohort(start_date=datetime.strptime('2024-09-29', '%Y-%m-%d'), location='New York', name = "ds011924", course = 'Data Science'),
+            Cohort(start_date=datetime.strptime('2024-07-29', '%Y-%m-%d'), location='New York', name = "se010924", course = 'Software Engineering'),
+            Cohort(start_date=datetime.strptime('2024-07-29', '%Y-%m-%d'), location='New York', name = "ds010924", course = 'Data Science'),
+            Cohort(start_date=datetime.strptime('2024-06-29', '%Y-%m-%d'), location='New York', name = "se032923", course = 'Software Engineering'),
+            Cohort(start_date=datetime.strptime('2024-06-29', '%Y-%m-%d'), location='New York', name = "ds032923", course = 'Data Science'),
+            Cohort(start_date=datetime.strptime('2024-05-29', '%Y-%m-%d'), location='New York', name = "se012923", course = 'Software Engineering'),
+            Cohort(start_date=datetime.strptime('2024-05-29', '%Y-%m-%d'), location='New York', name = "ds012023", course = 'Data Science'),
+            Cohort(start_date=datetime.strptime('2024-04-29', '%Y-%m-%d'), location='New York', name = "se012024", course = 'Software Engineering'),
+            Cohort(start_date=datetime.strptime('2024-04-29', '%Y-%m-%d'), location='New York', name = "ds112924", course = 'Data Science'),
+            Cohort(start_date=datetime.strptime('2024-03-29', '%Y-%m-%d'), location='New York', name = "se112924", course = 'Software Engineering'),
+            Cohort(start_date=datetime.strptime('2024-03-29', '%Y-%m-%d'), location='New York', name = "ds092924", course = 'Software Engineering'),
+            Cohort(start_date=datetime.strptime('2024-02-29', '%Y-%m-%d'), location='New York', name = "se062023", course = 'Data Science'),
+            Cohort(start_date=datetime.strptime('2024-02-29', '%Y-%m-%d'), location='New York', name = "ds062023", course = 'Cyber Security'),
+            Cohort(start_date=datetime.strptime('2024-01-29', '%Y-%m-%d'), location='New York', name = "se012924", course = 'Cyber Security'),
+            Cohort(start_date=datetime.strptime('2024-01-29', '%Y-%m-%d'), location='New York', name = "ds012924", course = 'Data Science'),
+            Cohort(start_date=datetime.strptime('2024-03-29', '%Y-%m-%d'), location='New York', name = "se022924", course = 'Cyber Security'),
+            Cohort(start_date=datetime.strptime('2024-03-29', '%Y-%m-%d'), location='New York', name = "ds022924", course = 'Data Science'),
+            Cohort(start_date=datetime.strptime('2024-09-29', '%Y-%m-%d'), location='New York', name = "se011924", course = 'Cyber Security'),
+            Cohort(start_date=datetime.strptime('2024-09-29', '%Y-%m-%d'), location='New York', name = "ds011924", course = 'Data Science'),
+            Cohort(start_date=datetime.strptime('2024-07-29', '%Y-%m-%d'), location='New York', name = "se010924", course = 'Cyber Security'),
+            Cohort(start_date=datetime.strptime('2024-01-29', '%Y-%m-%d'), location='Denver', name = "se012924", course = 'Software Engineering'),
+            Cohort(start_date=datetime.strptime('2024-01-29', '%Y-%m-%d'), location='Denver', name = "ds012924", course = 'Data Science'),
+            Cohort(start_date=datetime.strptime('2024-03-29', '%Y-%m-%d'), location='Denver', name = "se022924", course = 'Software Engineering'),
+            Cohort(start_date=datetime.strptime('2024-03-29', '%Y-%m-%d'), location='Denver', name = "ds022924", course = 'Data Science'),
+            Cohort(start_date=datetime.strptime('2024-09-29', '%Y-%m-%d'), location='Denver', name = "se011924", course = 'Software Engineering'),
+            Cohort(start_date=datetime.strptime('2024-09-29', '%Y-%m-%d'), location='Denver', name = "ds011924", course = 'Data Science'),
+            Cohort(start_date=datetime.strptime('2024-07-29', '%Y-%m-%d'), location='Denver', name = "se010924", course = 'Software Engineering'),
+            Cohort(start_date=datetime.strptime('2024-07-29', '%Y-%m-%d'), location='Denver', name = "ds010924", course = 'Data Science'),
+            Cohort(start_date=datetime.strptime('2024-06-29', '%Y-%m-%d'), location='Denver', name = "se032923", course = 'Software Engineering'),
+            Cohort(start_date=datetime.strptime('2024-06-29', '%Y-%m-%d'), location='Denver', name = "ds032923", course = 'Data Science'),
+            Cohort(start_date=datetime.strptime('2024-05-29', '%Y-%m-%d'), location='Denver', name = "se012923", course = 'Software Engineering'),
+            Cohort(start_date=datetime.strptime('2024-05-29', '%Y-%m-%d'), location='Denver', name = "ds012023", course = 'Data Science'),
+            Cohort(start_date=datetime.strptime('2024-04-29', '%Y-%m-%d'), location='Denver', name = "se012024", course = 'Software Engineering'),
+            Cohort(start_date=datetime.strptime('2024-04-29', '%Y-%m-%d'), location='Denver', name = "ds112924", course = 'Data Science'),
+            Cohort(start_date=datetime.strptime('2024-03-29', '%Y-%m-%d'), location='Denver', name = "se112924", course = 'Software Engineering'),
+            Cohort(start_date=datetime.strptime('2024-03-29', '%Y-%m-%d'), location='Denver', name = "ds092924", course = 'Software Engineering'),
+            Cohort(start_date=datetime.strptime('2024-02-29', '%Y-%m-%d'), location='Denver', name = "se062023", course = 'Data Science'),
+            Cohort(start_date=datetime.strptime('2024-02-29', '%Y-%m-%d'), location='Denver', name = "ds062023", course = 'Cyber Security'),
+            Cohort(start_date=datetime.strptime('2024-01-29', '%Y-%m-%d'), location='Denver', name = "se012924", course = 'Cyber Security'),
+            Cohort(start_date=datetime.strptime('2024-01-29', '%Y-%m-%d'), location='Denver', name = "ds012924", course = 'Data Science'),
+            Cohort(start_date=datetime.strptime('2024-03-29', '%Y-%m-%d'), location='Denver', name = "se022924", course = 'Cyber Security'),
+            Cohort(start_date=datetime.strptime('2024-03-29', '%Y-%m-%d'), location='Denver', name = "ds022924", course = 'Data Science'),
+            Cohort(start_date=datetime.strptime('2024-09-29', '%Y-%m-%d'), location='Denver', name = "se011924", course = 'Cyber Security'),
+            Cohort(start_date=datetime.strptime('2024-09-29', '%Y-%m-%d'), location='Denver', name = "ds011924", course = 'Data Science'),
+            Cohort(start_date=datetime.strptime('2024-07-29', '%Y-%m-%d'), location='Denver', name = "se010924", course = 'Cyber Security'),
+            Cohort(start_date=datetime.strptime('2024-01-29', '%Y-%m-%d'), location='Chicago', name = "se012924", course = 'Software Engineering'),
+            Cohort(start_date=datetime.strptime('2024-01-29', '%Y-%m-%d'), location='Chicago', name = "ds012924", course = 'Data Science'),
+            Cohort(start_date=datetime.strptime('2024-03-29', '%Y-%m-%d'), location='Chicago', name = "se022924", course = 'Software Engineering'),
+            Cohort(start_date=datetime.strptime('2024-03-29', '%Y-%m-%d'), location='Chicago', name = "ds022924", course = 'Data Science'),
+            Cohort(start_date=datetime.strptime('2024-09-29', '%Y-%m-%d'), location='Chicago', name = "se011924", course = 'Software Engineering'),
+            Cohort(start_date=datetime.strptime('2024-09-29', '%Y-%m-%d'), location='Chicago', name = "ds011924", course = 'Data Science'),
+            Cohort(start_date=datetime.strptime('2024-07-29', '%Y-%m-%d'), location='Chicago', name = "se010924", course = 'Software Engineering'),
+            Cohort(start_date=datetime.strptime('2024-07-29', '%Y-%m-%d'), location='Chicago', name = "ds010924", course = 'Data Science'),
+            Cohort(start_date=datetime.strptime('2024-06-29', '%Y-%m-%d'), location='Chicago', name = "se032923", course = 'Software Engineering'),
+            Cohort(start_date=datetime.strptime('2024-06-29', '%Y-%m-%d'), location='Remote', name = "ds032923", course = 'Data Science'),
+            Cohort(start_date=datetime.strptime('2024-05-29', '%Y-%m-%d'), location='Remote', name = "se012923", course = 'Software Engineering'),
+            Cohort(start_date=datetime.strptime('2024-05-29', '%Y-%m-%d'), location='Remote', name = "ds012023", course = 'Data Science'),
+            Cohort(start_date=datetime.strptime('2024-04-29', '%Y-%m-%d'), location='Remote', name = "se012024", course = 'Software Engineering'),
+            Cohort(start_date=datetime.strptime('2024-04-29', '%Y-%m-%d'), location='Remote', name = "ds112924", course = 'Data Science'),
+            Cohort(start_date=datetime.strptime('2024-03-29', '%Y-%m-%d'), location='Remote', name = "se112924", course = 'Software Engineering'),
+            Cohort(start_date=datetime.strptime('2024-03-29', '%Y-%m-%d'), location='Remote', name = "ds092924", course = 'Software Engineering'),
+            Cohort(start_date=datetime.strptime('2024-02-29', '%Y-%m-%d'), location='Remote', name = "se062023", course = 'Data Science'),
+            Cohort(start_date=datetime.strptime('2024-02-29', '%Y-%m-%d'), location='Remote', name = "ds062023", course = 'Cyber Security'),
+            Cohort(start_date=datetime.strptime('2024-01-29', '%Y-%m-%d'), location='San Francisco', name = "se012924", course = 'Cyber Security'),
+            Cohort(start_date=datetime.strptime('2024-01-29', '%Y-%m-%d'), location='San Francisco', name = "ds012924", course = 'Data Science'),
+            Cohort(start_date=datetime.strptime('2024-03-29', '%Y-%m-%d'), location='San Francisco', name = "se022924", course = 'Cyber Security'),
+            Cohort(start_date=datetime.strptime('2024-03-29', '%Y-%m-%d'), location='San Francisco', name = "ds022924", course = 'Data Science'),
+            Cohort(start_date=datetime.strptime('2024-09-29', '%Y-%m-%d'), location='San Francisco', name = "se011924", course = 'Cyber Security'),
+            Cohort(start_date=datetime.strptime('2024-09-29', '%Y-%m-%d'), location='San Francisco', name = "ds011924", course = 'Data Science'),
+            Cohort(start_date=datetime.strptime('2024-07-29', '%Y-%m-%d'), location='San Francisco', name = "se010924", course = 'Cyber Security'),
+            
+            
         ]
         db.session.add_all(cohorts)
+        db.session.commit()
+
+        print('Adding instructors...')
+        instructors = [
+            Instructor(name='John Doe', img='/assets/c01/cohort08.png', quote='Teach and inspire!', cohort_id=1),
+            Instructor(name='Jane Smith', img='/assets/c01/cohort08.png', quote='Every day is a learning day.', cohort_id=2)
+        ]
+        db.session.add_all(instructors)
         db.session.commit()
 
         # Add students

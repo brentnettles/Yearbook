@@ -1,4 +1,4 @@
-from flask import Flask, session, request, send_from_directory
+from flask import Flask, session, request, send_from_directory, redirect, url_for
 from flask_migrate import Migrate
 from flask_cors import CORS
 from models import db, Student, Cohort, Signature
@@ -19,12 +19,6 @@ Migrate(app, db)
 # Correct CORS setup to allow credentials
 CORS(app, supports_credentials=True, resources={r"*": {"origins": "http://localhost:5173"}})
 
-
-HARDCODED_USER = {
-    'user_id': 1,
-    'username': 'Test_User'
-}
-
 @app.route("/api/login", methods=["POST"])
 def login():
     data = request.get_json()
@@ -36,11 +30,15 @@ def login():
     student = Student.query.filter_by(email=email).first()
 
     if student:
-        # If the student exists, login is successful
+        session['user_id'] = student.id  # Store user ID in session
         return {"message": "Login successful", "user": student.to_dict()}, 200
     else:
-        # If no student found with that email, return an error
-        return {"error": "User not found"}, 404  
+        return {"error": "User not found"}, 404
+
+@app.route("/api/logout", methods=["POST"])
+def logout():
+    session.pop('user_id', None)  # Clear the session
+    return {"message": "Logged out"}, 200
 
 @app.route("/")
 def index():
@@ -53,89 +51,88 @@ def send_assets(path):
 
 @app.route("/check_session")
 def check_session():
-    return HARDCODED_USER, 200
-    
-# No need to handle login/logout endpoints for now
+    user_id = session.get('user_id')
+    if user_id:
+        user = Student.query.get(user_id)
+        return {"user": user.to_dict()}, 200
+    return {}, 401
 
 @app.route("/api/cohorts", methods=["GET"])
 def get_cohorts():
-    cohorts = Cohort.query.all()
-    return [cohort.to_dict() for cohort in cohorts], 200
-
-@app.route("/api/yearbook/<int:cohort_id>", methods=["GET"])
-def get_yearbook(cohort_id):
-    cohort = Cohort.query.get_or_404(cohort_id)
-    students = cohort.students
-
-    student_info = [
-        {
-            "id": student.id,
-            "name": student.name,
-            "img": student.img
-        }
-        for student in students
-    ]
-
-    # Return both students and the name of the cohort
-    return {"students": student_info, "cohortName": cohort.location}, 200  # Using cohort.location as the name
-
+    try:
+        cohorts = Cohort.query.all()
+        return [
+            {
+                "id": cohort.id,
+                "start_date": cohort.start_date.strftime('%Y-%m-%d'),
+                "location": cohort.location,
+                "name": cohort.name,
+                "course": cohort.course,
+                "instructors": [
+                    {
+                        "id": instructor.id,
+                        "name": instructor.name,
+                        "img": instructor.img,
+                        "quote": instructor.quote
+                    } for instructor in cohort.instructors
+                ]
+            } for cohort in cohorts
+        ], 200
+    except Exception as e:
+        return {"error": str(e)}, 500
 
 # @app.route("/api/yearbook/<int:cohort_id>", methods=["GET"])
 # def get_yearbook(cohort_id):
 #     cohort = Cohort.query.get_or_404(cohort_id)
 #     students = cohort.students
-
 #     student_info = [{"id": student.id, "name": student.name, "img": student.img} for student in students]
+#     return {"students": student_info, "cohortName": cohort.location}, 200
 
-#     # Include the cohort name in the response
-#     return {"students": student_info, "cohortName": cohort.name}, 200
-
-
+@app.route("/api/yearbook/<int:cohort_id>", methods=["GET"])
+def get_yearbook(cohort_id):
+    try:
+        cohort = Cohort.query.get_or_404(cohort_id)
+        students = cohort.students
+        student_info = [{"id": student.id, "name": student.name, "img": student.img, "quote": student.quote} for student in students]
+        instructors = [
+            {
+                "id": instructor.id,
+                "name": instructor.name,
+                "img": instructor.img,
+                "quote": instructor.quote
+            } for instructor in cohort.instructors
+        ]
+        return {
+            "cohortName": cohort.name,
+            "students": student_info,
+            "instructors": instructors
+        }, 200
+    except Exception as e:
+        return {"error": str(e)}, 404
+    
 @app.route("/api/student/<int:student_id>", methods=["GET"])
 def get_student(student_id):
     student = Student.query.get(student_id)
     if not student:
         return {"error": "Student not found"}, 404
     
-    student_info = student.to_dict() if hasattr(student, 'to_dict') else {
-        "name": student.email,
-        "img": student.img,
-        "quote": student.quote,
-        "signatures": student.signatures
-    }
-
-    return student_info, 200
+    return student.to_dict(), 200
 
 @app.route("/api/signatures", methods=["POST"])
 def create_signature():
-    if request.method == "POST":
-        # Parse JSON data from the request body
-        json_data = request.get_json()
-
-        # Create a new signature object using the JSON data
-        new_signature = Signature(
-            message=json_data.get('message'),
-            # Add any other fields you need for the signature
-        )
-
-        # Add the new signature to the database session
-        db.session.add(new_signature)
-        
-        try:
-            # Commit the changes to the database
-            db.session.commit()
-            # Return a success response with the newly created signature
-            return {
-                "id": new_signature.id,
-                "message": new_signature.message,
-                # Add other fields if needed
-            }, 201
-        except Exception as e:
-            # Rollback changes if an error occurs
-            db.session.rollback()
-            # Return an error response
-            return {"error": str(e)}, 500
-
+    json_data = request.get_json()
+    new_signature = Signature(
+        message=json_data.get('message'),
+        student_id=json_data.get('student_id'),
+        author=json_data.get('author')
+    )
+    db.session.add(new_signature)
+    try:
+        db.session.commit()
+        return {"id": new_signature.id, "message": new_signature.message}, 201
+    except Exception as e:
+        db.session.rollback()
+        return {"error": str(e)}, 500
 
 if __name__ == "__main__":
     app.run(port=5555, debug=True)

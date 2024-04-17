@@ -42,35 +42,30 @@ button {
 }
 
 button:hover {
-  background-color: #fff; /* Invert colors on hover */
+  background-color: #cec9c9; /* Invert colors on hover */
   color: #000;
   border-color: #333;
 }
 
 /* Home background */
-.home-background {
+/* .home-background {
   background-image: url('/images/flatiron_building_bw.png');
   background-size: cover;
   background-position: center;
   height: 100vh;
   width: 100%;
   background-repeat: no-repeat;
-}
+} */
 /* Navbar styles */
 .navbar {
-  background-color: #ffffff; /* Background color for navbar */
+  background-color: #8d7474; /* Background color for navbar */
   color: #fff; /* Text color for navbar */
-  padding: 10px 20px; /* Padding for navbar */
+  padding: 10px 15px; /* Padding for navbar */
   position: fixed; /* Fixed positioning */
   top: 0; /* Align to top of viewport */
   left: 0; /* Align to left of viewport */
   width: 100%; /* Full width */
   z-index: 1000; /* Ensure it's above other content */
-}
-
-.navbar-brand {
-  font-size: 1.5rem; /* Adjust as needed */
-  font-weight: bold; /* Bold font weight for brand */
 }
 
 .navbar-menu-toggle {
@@ -89,7 +84,7 @@ button:hover {
   position: absolute; /* Absolute positioning */
   top: calc(100% + 10px); /* Align below navbar with padding */
   left: 0; /* Align to left of navbar */
-  background-color: #ffffff; /* Background color for menu */
+  background-color: #bfbbbb; /* Background color for menu */
   padding: 20px; /* Padding for menu */
   padding-left: 20px; /* Padding for menu */
   transition: transform 0.5s ease-in-out; /* Slow and smooth transition for opening/closing */
@@ -119,51 +114,70 @@ button:hover {
 
 
 /* Yearbook gallery */
-.yearbook-gallery {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  grid-gap: 20px;
-  padding: 20px; /* Added padding around the gallery */
+.yearbook-container {
+  padding-top: 150px; /* Adjust based on actual NavBar height */
+  max-width: 100%; /* Ensures the container does not exceed the width of the viewport */
 }
 
-/* Yearbook gallery */
+.header-container {
+  display: flex;
+  justify-content: space-between; /* Aligns content to each end and centers */
+  align-items: center; /* Aligns items vertically */
+  margin-bottom: 10px; /* Adds space below the header */
+}
+
+.cohort-name {
+  flex-grow: 1; /* Allows the cohort name to grow and fill space */
+  text-align: center; /* Centers the cohort name text */
+}
+
+.instructors-row {
+  display: flex;
+  justify-content: flex-end; /* Aligns instructors to the right */
+  gap: 15px; /* Space between instructors if more than one */
+  padding: 10px; /* Adjust padding for aesthetics */
+  flex-wrap: wrap; /* Ensures wrapping of instructor items */
+}
+
 .yearbook-gallery {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  grid-gap: 20px;
-  padding: 20px; /* Added padding around the gallery */
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* Grid setup for gallery */
+  gap: 20px; /* Space between grid items */
+  padding: 20px; /* Padding around the gallery */
 }
 
 .yearbook-item {
-  background-color: #fff;
-  border: 2px solid #000;
-  padding: 15px; /* Padding to center the image within the item */
-  text-align: center; /* Center text and images horizontally */
   display: flex;
   flex-direction: column;
-  align-items: center; /* Align items in the center of the flex container */
+  align-items: center;
+  text-align: center;
 }
 
 .yearbook-image {
-  max-width: 100%;
-  border: 2px solid black;
-  display: block;
-  margin: 0 auto; /* Center image left to right */
-  transition: transform 0.3s ease-in-out;
-  height: 200px; /* Set a fixed height for the image */
+  width: 100%; /* Adjusts image to fill the container */
+  height: auto; /* Keeps image aspect ratio */
+  border: 2px solid black; /* Border for visual separation */
 }
+
+.yearbook-item p {
+  margin-top: 5px; /* Space at the top of the paragraph */
+  color: #333; /* Dark gray color for readability */
+  font-size: 0.9rem; /* Font size for mobile readability */
+}
+
+.yearbook-item .quote {
+  font-style: italic; /* Italic style for quotes */
+  font-size: 0.8rem; /* Smaller font size for quotes */
+}
+
+
+
+
 
 .yearbook-image:hover {
-  filter: grayscale(100%);
+  transform: scale(1.1); /* Scale image up slightly on hover */
+  filter: grayscale(50%); /* Reduce color saturation on hover */
 }
-
-/* Adjust student name styling */
-.yearbook-item p {
-  font-size: 1rem; /* Increase font size for student names */
-  margin-top: 10px; /* Space between image and name */
-  color: #333; /* Dark gray color for readability */
-}
-
 /* Student card overlay and card */
 .card-overlay {
   position: fixed;

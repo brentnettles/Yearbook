@@ -62,7 +62,10 @@ class Cohort(db.Model, SerializerMixin):
     id = db.Column(db.Integer, primary_key=True)
     start_date = db.Column(db.DateTime, server_default=db.func.now())
     location = db.Column(db.String)
+    name = db.Column(db.String)
+    course = db.Column(db.String)
 
+    instructors = relationship("Instructor", back_populates="cohort")
     students = relationship("Student", back_populates="cohort")
     serialize_rules = ['-students.cohort']
 
@@ -82,3 +85,14 @@ class Signature(db.Model):
 
     def __repr__(self):
         return f"<Signature '{self.message}' by {self.author}>"
+    
+class Instructor(db.Model, SerializerMixin):
+    __tablename__ = 'instructors'
+
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String)
+    img = db.Column(db.String)
+    quote = db.Column(db.String)
+    cohort_id = db.Column(db.Integer, db.ForeignKey('cohorts.id'))
+
+    cohort = relationship("Cohort", back_populates="instructors")
