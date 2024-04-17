@@ -39,7 +39,7 @@ const InstructorCard = () => {
 
     return (
         <div className="card-overlay" onClick={handleOverlayClick}>
-            <div className="detail-card" onClick={handleCardClick}>
+            <div className="detail-card-ben" onClick={handleCardClick}>
                 <img src={`http://127.0.0.1:5555${instructor.img}`} alt={instructor.name} />
                 <div>
                     <h2>{instructor.name}</h2>

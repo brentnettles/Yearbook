@@ -49,20 +49,19 @@ const StudentDetails = () => {
                     <p>"{student.quote}"</p>
                 </div>
                 <div className="signatures-list">
-                    <h3>Signatures:</h3>
-                    <ul>
-                        {signatures.map((signature, index) => (
-                            <li key={index}>
-                                {signature.message} - 
-                                <strong>
-                                    <Link to={`/student-details/${signature.authorId}`}>
-                                        {signature.author}
-                                    </Link>
-                                </strong>
-                            </li>
-                        ))}
-                    </ul>
-                </div>
+    <h3>Signatures:</h3>
+    <ul>
+            {signatures.map((signature, index) => (
+            <li key={index}>
+                {signature.message} - 
+                <strong>
+                    <Link to={`/student-details/${signature.author_id}`}>{signature.author}</Link>
+                </strong>
+            </li>
+        ))}
+
+    </ul>
+</div>
                 <SignatureForm studentId={student.id} onNewSignature={handleNewSignature} />
             </div>
         </div>

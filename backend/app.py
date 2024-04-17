@@ -142,9 +142,9 @@ def create_signature():
         author_id=json_data['author_id']  # Assuming author_id is sent correctly from the front-end
     )
     db.session.add(new_signature)
-    try :
+    try:
         db.session.commit()
-        return {"id": new_signature.id, "message": new_signature.message, "author": new_signature.author.name}, 201
+        return new_signature.to_dict(), 201  # Use jsonify if to_dict returns a dictionary
     except Exception as e:
         db.session.rollback()
         return {"error": str(e)}, 500

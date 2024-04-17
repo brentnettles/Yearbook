@@ -137,6 +137,7 @@ button:hover {
   justify-content: flex-end; /* Aligns instructors to the right */
   gap: 15px; /* Space between instructors if more than one */
   padding: 10px; /* Adjust padding for aesthetics */
+  max-width: 200px;
   flex-wrap: wrap; /* Ensures wrapping of instructor items */
 }
 

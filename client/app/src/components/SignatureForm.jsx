@@ -7,12 +7,8 @@ function SignatureForm({ studentId, onNewSignature }) {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-
-        if (!user) {
-            console.error('No user logged in');
-            return;
-        }
-
+        const authorId = user ? user.id : null; // Assuming user.id is the logged-in student's ID
+    
         try {
             const response = await fetch('http://127.0.0.1:5555/api/signatures', {
                 method: 'POST',
@@ -21,19 +17,17 @@ function SignatureForm({ studentId, onNewSignature }) {
                 },
                 body: JSON.stringify({
                     message: signature,
-                    student_id: studentId,
-                    author_id: user.id  // Use user.id from the context
+                    student_id: studentId,  // ID of the student whose details page this is
+                    author_id: authorId      // ID of the logged-in student (author)
                 }),
             });
-
+    
             if (response.ok) {
                 const newSignature = await response.json();
-                console.log('Signature submitted successfully:', newSignature);
-                onNewSignature(newSignature);
+                onNewSignature(newSignature);  // Update the state to render the new signature
                 setSignature('');
             } else {
-                const errorData = await response.json();
-                console.error('Failed to submit signature:', errorData.error);
+                console.error('Failed to submit signature');
             }
         } catch (error) {
             console.error('Error submitting signature:', error);

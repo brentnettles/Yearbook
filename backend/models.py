@@ -80,8 +80,10 @@ class Signature(db.Model):
     student_id = db.Column(db.Integer, db.ForeignKey('students.id'))
 
     # Relationships
-    author = relationship("Student", foreign_keys=[author_id], back_populates="authored_signatures")
-    recipient = relationship("Student", foreign_keys=[student_id], back_populates="received_signatures")
+    # author = relationship("Student", foreign_keys=[author_id], back_populates="authored_signatures")
+    # recipient = relationship("Student", foreign_keys=[student_id], back_populates="received_signatures")
+    author = relationship("Student", foreign_keys=[author_id], back_populates="authored_signatures", lazy='joined')
+    recipient = relationship("Student", foreign_keys=[student_id], back_populates="received_signatures", lazy='joined')
 
     def to_dict(self):
         return {
