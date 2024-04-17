@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { useUser } from '../CreateUserContext'; // Import the useUser hook
+import { useUserContext } from './CreateUserContext'; // Corrected import statement
 
 function SignatureForm({ studentId, onNewSignature }) {
   const [signature, setSignature] = useState('');
-  const { user } = useUser(); // Access the current user
+  const { user } = useUserContext(); // Correctly use useUserContext here
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -19,7 +19,7 @@ function SignatureForm({ studentId, onNewSignature }) {
       });
 
       if (response.ok) {
-        const newSignature = await response.json(); // Assuming the server returns the saved signature
+        const newSignature = await response.json();
         console.log('Signature submitted successfully');
         onNewSignature(newSignature);
         setSignature('');
