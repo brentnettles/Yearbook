@@ -8,15 +8,16 @@
 body {
   font-family: 'Nunito', sans-serif;
   font-size: 1.75rem;
-  background-color: #f4f4f4;
-  color: #333;
+  background-color: #fff; /* White background */
+  color: #333; /* Dark gray text for readability */
   line-height: 1.6;
   margin: 0;
   padding: 20px;
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-weight: 600;
+  font-weight: 700; /* Bolder font for headings */
+  color: #222; /* Slightly darker than body text */
 }
 
 a {
@@ -26,6 +27,7 @@ a {
 
 a:hover {
   text-decoration: underline;
+  color: #000; /* Black on hover for links */
 }
 
 ul {
@@ -34,134 +36,132 @@ ul {
 
 button {
   font-family: 'Nunito', sans-serif;
+  background-color: #000; /* Black button backgrounds */
+  color: #fff; /* White text on buttons */
+  border: 1px solid #000; /* Consistent with button background */
+}
+
+button:hover {
+  background-color: #fff; /* Invert colors on hover */
+  color: #000;
+  border-color: #333;
 }
 
 /* Home background */
 .home-background {
-  background-image: url('/images/flatiron_building.png');
-  background-size: 30% auto; /* Adjust width to 80% of the element, auto-adjust height */
-  background-position: right center;
+  background-image: url('/images/flatiron_building_bw.png');
+  background-size: cover;
+  background-position: center;
   height: 100vh;
   width: 100%;
   background-repeat: no-repeat;
 }
-
 /* Navbar styles */
 .navbar {
-  background-color: #333;
-  overflow: hidden;
-  height: 30px;
-  transition: height 0.5s;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: row;
+  background-color: #ffffff; /* Background color for navbar */
+  color: #fff; /* Text color for navbar */
+  padding: 10px 20px; /* Padding for navbar */
+  position: fixed; /* Fixed positioning */
+  top: 0; /* Align to top of viewport */
+  left: 0; /* Align to left of viewport */
+  width: 100%; /* Full width */
+  z-index: 1000; /* Ensure it's above other content */
 }
 
-.navbar:hover {
-  height: 70px;
+.navbar-brand {
+  font-size: 1.5rem; /* Adjust as needed */
+  font-weight: bold; /* Bold font weight for brand */
 }
 
-.navbar a {
-  color: #f2f2f2;
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
-  opacity: 0;
-  transition: opacity 0.5s;
+.navbar-menu-toggle {
+  display: none; /* Hide by default */
 }
 
-.navbar:hover a {
-  opacity: 1;
+.navbar-menu-icon {
+  display: block; /* Display as block element */
+  cursor: pointer; /* Show pointer cursor */
+  font-size: 3rem; /* Adjust as needed */
+  color: skyblue
 }
 
-/* Expanded content styles */
-.expanded-content {
-  display: none;
+.navbar-menu {
+  display: none; /* Hide by default */
+  position: absolute; /* Absolute positioning */
+  top: calc(100% + 10px); /* Align below navbar with padding */
+  left: 0; /* Align to left of navbar */
+  background-color: #ffffff; /* Background color for menu */
+  padding: 20px; /* Padding for menu */
+  padding-left: 20px; /* Padding for menu */
+  transition: transform 0.5s ease-in-out; /* Slow and smooth transition for opening/closing */
+  transform: translateY(-100%); /* Initially hidden above navbar */
 }
 
-.navbar:hover .expanded-content {
-  display: block;
-  padding: 20px;
-  color: white;
-}
-/* LOGIN */
-.login-form {
-  max-width: 360px;
-  margin: 0 auto;
-  padding: 20px;
-  background-color: #fff;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+.navbar-menu.open {
+  display: block; /* Show when menu is open */
+  transform: translateY(0); /* Slide down to show */
 }
 
-.form-group {
-  margin-bottom: 15px;
+.navbar-menu-items {
+  display: flex; /* Display as flex */
+  flex-direction: column; /* Stack items vertically */
 }
 
-.form-group label {
-  display: block;
-  margin-bottom: 5px;
+.navbar-menu-item {
+  color: skyblue; /* Text color for menu items */
+  text-decoration: none; /* Remove default link decoration */
+  padding: 10px 0; /* Padding for menu items */
+  transition: background-color 0.3s; /* Smooth transition for hover effect */
 }
 
-.form-control {
-  width: 100%;
-  padding: 8px 10px;
-  font-size: 16px;
-  line-height: 20px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+.navbar-menu-item:hover {
+  background-color: #555; /* Background color on hover */
 }
 
-.btn.login-btn {
-  width: 100%;
-  padding: 10px;
-  background-color: #007bff;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 16px;
-}
-
-.btn.login-btn:hover {
-  background-color: #0056b3;
-}
-
-.error-message {
-  color: #d9534f;
-  margin-top: 10px;
-}
-
-.success-message {
-  color: #28a745;
-  margin-top: 10px;
-}
 
 /* Yearbook gallery */
 .yearbook-gallery {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   grid-gap: 20px;
-  padding: 20px;
-  justify-items: center;
+  padding: 20px; /* Added padding around the gallery */
+}
+
+/* Yearbook gallery */
+.yearbook-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  grid-gap: 20px;
+  padding: 20px; /* Added padding around the gallery */
 }
 
 .yearbook-item {
   background-color: #fff;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  overflow: hidden;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border: 2px solid #000;
+  padding: 15px; /* Padding to center the image within the item */
+  text-align: center; /* Center text and images horizontally */
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: center; /* Align items in the center of the flex container */
 }
 
 .yearbook-image {
-  width: 100%;
-  height: auto;
+  max-width: 100%;
+  border: 2px solid black;
+  display: block;
+  margin: 0 auto; /* Center image left to right */
+  transition: transform 0.3s ease-in-out;
+  height: 200px; /* Set a fixed height for the image */
+}
+
+.yearbook-image:hover {
+  filter: grayscale(100%);
+}
+
+/* Adjust student name styling */
+.yearbook-item p {
+  font-size: 1rem; /* Increase font size for student names */
+  margin-top: 10px; /* Space between image and name */
+  color: #333; /* Dark gray color for readability */
 }
 
 /* Student card overlay and card */
@@ -171,14 +171,14 @@ button {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent black overlay */
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
 .student-card {
-  background-color: white;
+  background-color: #fff;
   padding: 20px;
   border-radius: 10px;
   width: 80%;
@@ -201,9 +201,9 @@ button {
   cursor: pointer;
 }
 
-.student-card img:hover {
-  transform: scale(1.1);
-}
+/* .student-card img:hover {
+  /* transform: scale(1.1);
+} */ */
 
 .student-card button {
   position: absolute;
@@ -221,14 +221,68 @@ button {
   background-color: rgba(255, 255, 255, 1);
   color: #000;
 }
-.controlLeft, .controlRight {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  cursor: pointer;
-  z-index: 1000;  
+
+/* Style for the container */
+.cohort-list {
+  margin-top: 20px;
 }
-/* Responsive adjustments */
+
+/* Style for the search input */
+.search-input {
+  width: 100%;
+  padding: 8px 12px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+/* Style for the table */
+.cohort-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+/* Style for table headers */
+.cohort-table th {
+  padding: 12px 0;
+  text-align: left;
+  background-color: #f2f2f2;
+  border-bottom: 2px solid #ddd;
+}
+
+/* Style for table rows */
+.cohort-row {
+  border-bottom: 1px solid #ddd;
+}
+
+/* Style for table data cells */
+.cohort-name,
+.cohort-location,
+.cohort-actions {
+  padding: 12px 0;
+}
+
+/* Style for links within table cells */
+.view-yearbook-link {
+  text-decoration: none;
+  color: #007bff; /* Blue color for links */
+}
+
+/* Style for links on hover */
+.view-yearbook-link:hover {
+  text-decoration: underline;
+}
+
+/* Form and Button Styling */
+.form-control, .login-form, .btn {
+  border-color: #333; /* Darker borders for form elements */
+}
+
+.error-message, .success-message {
+  font-weight: bold;
+}
+
 @media (max-width: 768px) {
   .student-card {
     width: 95%;
@@ -237,17 +291,5 @@ button {
 }
 
 @media (max-width: 600px) {
-  .yearbook-gallery {
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-  }
-}
-@font-face {
-  font-family: 'slick';
-  font-weight: normal;
-  font-style: normal;
-  src: url('/fonts/slick.eot');
-  src: url('/fonts/slick.eot?#iefix') format('embedded-opentype'),
-       url('/fonts/slick.woff') format('woff'),
-       url('/fonts/slick.ttf') format('truetype'),
-       url('/fonts/slick.svg#slick') format('svg');
+ 
 }

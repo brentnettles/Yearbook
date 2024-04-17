@@ -30,7 +30,7 @@ const StudentCard = () => {
     if (!student) return <p>No student found.</p>;
 
     const handleCardClick = (e) => {
-        e.stopPropagation(); // Prevent click propagation to the parent overlay
+        e.stopPropagation();
         navigate(`/student-details/${student.id}`);
     };
 
@@ -44,7 +44,7 @@ const StudentCard = () => {
                 <img src={`http://127.0.0.1:5555${student.img}`} alt={student.name} />
                 <div>
                     <h2>{student.name}</h2>
-                    <p>Quote: {student.quote}</p>
+                    <p> "{student.quote}"</p>
                 </div>
             </div>
         </div>
