@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, Link } from 'react-router-dom';
 import SignatureForm from './SignatureForm'; // Ensure this is the correct import path
 
 const StudentDetails = () => {
@@ -17,7 +17,7 @@ const StudentDetails = () => {
                 if (!response.ok) throw new Error('Failed to fetch student details');
                 const data = await response.json();
                 setStudent(data);
-                setSignatures(data.signatures || []); // Initialize signatures with the fetched data or an empty array
+                setSignatures(data.received_signatures || []); // Use the updated key for signatures
             } catch (error) {
                 setError(error.message);
             } finally {
@@ -29,7 +29,7 @@ const StudentDetails = () => {
     }, [studentId]);
 
     const handleNewSignature = (newSignature) => {
-        setSignatures([...signatures, newSignature]); // Append the new signature to the current list
+        setSignatures(prevSignatures => [...prevSignatures, newSignature]);
     };
 
     if (loading) return <p>Loading...</p>;
@@ -37,23 +37,37 @@ const StudentDetails = () => {
     if (!student) return <p>No student found.</p>;
 
     return (
-        <div className="student-details-container">
-            <button onClick={() => navigate(`/yearbook/${student.cohort_id}`)}>Back to Yearbook</button>
-            <h2>Student Details for {student.name}</h2>
-            <img src={`http://127.0.0.1:5555${student.img}`} alt={student.name} />
-            <p><strong>Name:</strong> {student.name}</p>
-            <p><strong>Quote:</strong> {student.quote}</p>
-            <div className="yearbook-sigs">
-                <h3>Signatures</h3>
-                <ul>
-                    {signatures.map((signature, index) => (
-                        <li key={index}>{signature.message}</li>
-                    ))}
-                </ul>
+        <div className="details-container">
+            <button className="back-button" onClick={() => navigate(`/yearbook/${student.cohort_id}`)}>Back to Yearbook</button>
+            <div className="student-image-container">
+                <img src={`http://127.0.0.1:5555${student.img}`} alt={student.name} />
+                <a href={`${student.img}`} download={`${student.name}_Yearbook_Photo.jpg`}>Download Photo</a>
+            </div>
+            <div className="signatures-container">
+                <div>
+                    <h2>{student.name}</h2>
+                    <p>"{student.quote}"</p>
+                </div>
+                <div className="signatures-list">
+                    <h3>Signatures:</h3>
+                    <ul>
+                        {signatures.map((signature, index) => (
+                            <li key={index}>
+                                {signature.message} - 
+                                <strong>
+                                    <Link to={`/student-details/${signature.authorId}`}>
+                                        {signature.author}
+                                    </Link>
+                                </strong>
+                            </li>
+                        ))}
+                    </ul>
+                </div>
                 <SignatureForm studentId={student.id} onNewSignature={handleNewSignature} />
             </div>
         </div>
     );
+    
 };
 
 export default StudentDetails;

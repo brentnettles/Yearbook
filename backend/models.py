@@ -21,23 +21,11 @@ class Student(db.Model, SerializerMixin):
     grad_date = db.Column(db.Date, server_default=db.func.now())
     cohort_id = db.Column(db.Integer, db.ForeignKey('cohorts.id'))
     email = db.Column(db.String, nullable=False, unique=True)
-    _password = db.Column(db.String(128), nullable=False)
 
-
+    # Relationships
     cohort = relationship("Cohort", back_populates="students")
-    signatures = relationship("Signature", back_populates="student", lazy="dynamic")
-    serialize_rules = ['-cohort.students']
-
-    @property
-    def password(self):
-        raise AttributeError('password: write-only field')
-
-    @password.setter
-    def password(self, password):
-        self._password = bcrypt.generate_password_hash(password).decode('utf-8')
-
-    def check_password(self, password):
-        return bcrypt.check_password_hash(self._password, password)
+    authored_signatures = relationship("Signature", foreign_keys="Signature.author_id", back_populates="author", lazy='dynamic')
+    received_signatures = relationship("Signature", foreign_keys="Signature.student_id", back_populates="recipient", lazy='dynamic')
 
     def to_dict(self):
         return {
@@ -47,11 +35,10 @@ class Student(db.Model, SerializerMixin):
             "img": self.img,
             "quote": self.quote,
             "grad_date": self.grad_date.strftime('%Y-%m-%d'),
-            "cohort_id": self.cohort.id,
-            "cohort_location": self.cohort.location,
-            # Do not return the password or any sensitive information
+            "cohort_id": self.cohort.id if self.cohort else None,
+            "cohort_location": self.cohort.location if self.cohort else None,
+            "received_signatures": [sig.to_dict() for sig in self.received_signatures]
         }
-
     def __repr__(self):
         return f"<Student {self.email}>"
 
@@ -69,6 +56,17 @@ class Cohort(db.Model, SerializerMixin):
     students = relationship("Student", back_populates="cohort")
     serialize_rules = ['-students.cohort']
 
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "start_date": self.start_date.strftime('%Y-%m-%d'),
+            "location": self.location,
+            "name": self.name,
+            "course": self.course,
+            "instructors": [instructor.to_dict() for instructor in self.instructors]  # ensure Instructors have a to_dict method
+        }
+
+
     def __repr__(self):
         return f"<Cohort {self.id}>"
 
@@ -78,14 +76,23 @@ class Signature(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     message = db.Column(db.String)
-    author = db.Column(db.String)
+    author_id = db.Column(db.Integer, db.ForeignKey('students.id'))
     student_id = db.Column(db.Integer, db.ForeignKey('students.id'))
 
-    student = relationship("Student", back_populates="signatures")
+    # Relationships
+    author = relationship("Student", foreign_keys=[author_id], back_populates="authored_signatures")
+    recipient = relationship("Student", foreign_keys=[student_id], back_populates="received_signatures")
+
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "message": self.message,
+            "author": self.author.name if self.author else "Anonymous",
+            "author_id": self.author_id
+        }
 
     def __repr__(self):
-        return f"<Signature '{self.message}' by {self.author}>"
-    
+        return f"<Signature '{self.message}' by {self.author.name if self.author else 'Anonymous'}>"
 class Instructor(db.Model, SerializerMixin):
     __tablename__ = 'instructors'
 

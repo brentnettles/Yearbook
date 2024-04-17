@@ -82,11 +82,12 @@ button:hover {
 .navbar-menu {
   display: none; /* Hide by default */
   position: absolute; /* Absolute positioning */
+
   top: calc(100% + 10px); /* Align below navbar with padding */
   left: 0; /* Align to left of navbar */
   background-color: #bfbbbb; /* Background color for menu */
   padding: 20px; /* Padding for menu */
-  padding-left: 20px; /* Padding for menu */
+  padding-left: -20px; /* Padding for menu */
   transition: transform 0.5s ease-in-out; /* Slow and smooth transition for opening/closing */
   transform: translateY(-100%); /* Initially hidden above navbar */
 }
@@ -102,14 +103,14 @@ button:hover {
 }
 
 .navbar-menu-item {
-  color: skyblue; /* Text color for menu items */
+  color: #8d7474; /* Text color for menu items */
   text-decoration: none; /* Remove default link decoration */
   padding: 10px 0; /* Padding for menu items */
   transition: background-color 0.3s; /* Smooth transition for hover effect */
 }
 
 .navbar-menu-item:hover {
-  background-color: #555; /* Background color on hover */
+  color: #8d7474; /* Background color on hover */
 }
 
 
@@ -170,13 +171,9 @@ button:hover {
   font-size: 0.8rem; /* Smaller font size for quotes */
 }
 
-
-
-
-
 .yearbook-image:hover {
-  transform: scale(1.1); /* Scale image up slightly on hover */
-  filter: grayscale(50%); /* Reduce color saturation on hover */
+  /* transform: scale(1.1); Scale image up slightly on hover */
+  filter: grayscale(100%); /* Reduce color saturation on hover */
 }
 /* Student card overlay and card */
 .card-overlay {
@@ -185,61 +182,217 @@ button:hover {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent black overlay */
+  background-color: #8d7474;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.student-card {
+.detail-card {
   background-color: #fff;
   padding: 20px;
-  border-radius: 10px;
+  padding-top: 150px;
+  /* border-radius: 10px; */
   width: 80%;
   max-width: 600px;
-  max-height: 80%;
-  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start; /* Align content to start to prevent stretching */
+  overflow: auto; /* Allow scrolling within the card if necessary */
   position: relative;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   transition: box-shadow 0.3s ease-in-out;
 }
 
-.student-card:hover {
+.detail-card:hover {
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
-.student-card img {
-  width: 100%;
-  height: auto;
-  transition: transform 0.3s ease-in-out;
-  cursor: pointer;
+.detail-card img {
+  width: 100%; /* Take full width of the card */
+  height: auto; /* Maintain aspect ratio */
+  max-height: 70vh; /* Limit max height to 50% of the viewport height */
+  object-fit: contain; /* Ensure the whole image is visible */
 }
 
-/* .student-card img:hover {
-  /* transform: scale(1.1);
-} */ */
+.detail-card div {
+  text-align: center;
+  overflow: visible; /* Change from auto to visible to ensure text is always visible */
+  padding: 10px;
+  width: 100%; /* Ensure text block uses the full width available */
+}
 
-.student-card button {
+.detail-card button {
   position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
+  top: 20px;
+  right: 20px;
   background-color: rgba(255, 255, 255, 0.8);
   color: #333;
-  border: 1px solid #ddd;
+  border: none;
   cursor: pointer;
   padding: 10px;
-  border-radius: 50%;
+  /* border-radius: 50%; */
 }
 
-.student-card button:hover {
+.detail-card button:hover {
   background-color: rgba(255, 255, 255, 1);
   color: #000;
 }
 
-/* Style for the container */
+.detail-card h2 {
+  font-size: clamp(18px, 2.5vw, 22px); /* Adjusts between 18px and 22px depending on the viewport width */
+}
+
+.detail-card p {
+  font-size: clamp(14px, 1.5vw, 18px); /* Adjusts between 14px and 18px depending on the viewport width */
+}
+
+/* COHORT container */
 .cohort-list {
   margin-top: 20px;
 }
+
+/*STUDENT DETAILS*/
+.details-container {
+  display: flex;
+  align-items: flex-start;
+  padding: 20px;
+  padding-top: 120px;
+  background-color: #fff; /* Clean white background */
+  height: 100vh; /* Full viewport height */
+  overflow: hidden; /* Ensures no overflow */
+}
+
+.details-text {
+  flex: 1; /* Allows it to grow and shrink as needed */
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.student-image-container {
+  flex: 1; /* Allows it to grow with the container */
+  text-align: center;
+  padding: 20px;
+  max-width: 65%; /* Controls maximum width */
+}
+
+.student-image-container img {
+  height: auto;
+  max-height: 65vh; /* Restricts image height */
+  max-width: 100%; /* Ensures the image is responsive and fits within the container */
+  border-radius: 8px; /* Soft rounded corners */
+  object-fit: cover; /* Ensures the image covers the area without distortion */
+}
+
+.back-button {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  padding: 8px 16px;
+  padding-top: 90px;
+  background-color: skyblue;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.signatures-container {
+  width: 35%; /* Adjust width as needed */
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  margin-left: 20px; /* Space between image and text */
+  overflow-y: auto; /* Allows scrolling if content is too long */
+}
+
+.signatures-list {
+  overflow-y: auto; /* Allows for scrolling */
+  max-height: 50%; /* Restricts the height of the signatures list */
+  margin-bottom: 20px; /* Space between the list and the form */
+}
+
+.signature-form {
+  flex-grow: 1; /* Takes up the remaining space */
+}
+
+.signatures-container h3 {
+  color: #333;
+  font-size: 14px;
+}
+
+.signatures-container ul {
+  list-style: none;
+  padding: 0;
+}
+
+.signatures-container li {
+  padding: 8px;
+  margin-bottom: 5px;
+  background-color: #fff;
+  border-radius: 4px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+.signature-form textarea {
+  width: 100%; /* Full width of the container */
+  height: 100px;
+  margin-bottom: 10px; /* Space between textarea and button */
+  padding: 8px;
+  font-size: 16px; /* Larger text for easier reading */
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  resize: vertical; /* Allows vertical resizing */
+}
+
+.signature-form button {
+  width: 100%;
+  padding: 10px 0;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.signature-form button:hover {
+  background-color: #218838;
+}
+
+a {
+  color: #3498db;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+  .details-container {
+    flex-direction: column;
+  }
+
+  .student-image-container,
+  .signatures-container {
+    max-width: 100%; /* Full width on smaller screens */
+  }
+}
+
+
+a {
+  color: #3498db;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+
+
 
 /* Style for the search input */
 .search-input {
@@ -254,6 +407,7 @@ button:hover {
 /* Style for the table */
 .cohort-table {
   width: 100%;
+  padding-top: 160px;
   border-collapse: collapse;
 }
 
@@ -296,6 +450,107 @@ button:hover {
 .error-message, .success-message {
   font-weight: bold;
 }
+
+/* General styles for the entire form area */
+.login-form {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 20px;
+  padding-top: 0px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  background-color: #f0f0f0;
+}
+
+.home-container {
+  text-align: center;
+  padding: 50px;
+  padding-top: 200px;
+  background-color: #ffffff; /* Light grey background for a clean look */
+}
+
+.logo-container {
+  margin-bottom: 20px; /* Space below the logo */
+}
+
+.home-logo {
+  width: 100px; /* Adjust the size as needed */
+  height: auto;
+}
+
+.home-title {
+  color: #2c3e50; /* Dark blue color for the title */
+  font-size: 28px; /* Larger font size for title */
+  margin-bottom: 10px; /* Space below the title */
+}
+
+.home-subtitle {
+  color: #34495e; /* Slightly lighter blue for the subtitle */
+  font-size: 24px; /* Size of the subtitle */
+}
+
+.home-welcome-message {
+  color: #16a085; /* Teal color for the welcome message */
+  font-size: 20px; /* Size of the welcome message */
+  margin-top: 20px; /* Space above the welcome message */
+}
+
+/* Styles for each form group (label + input) */
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+  color: #333;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box; /* Include padding and border in the element's width and height */
+}
+
+/* Button styling */
+.btn {
+  width: 100%;
+  padding: 10px;
+  background-color:  #8d7474;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+  background-color: #004494;
+}
+
+
+/* Message styles for error and success messages */
+.error-message,
+.success-message {
+  color: #d8000c;
+  background-color: #ffbaba;
+  border-color: #d8000c;
+  padding: 10px;
+  border-radius: 4px;
+  margin-top: 10px;
+  text-align: center;
+}
+
+.success-message {
+  color: #4F8A10;
+  background-color: #DFF2BF;
+}
+
 
 @media (max-width: 768px) {
   .student-card {

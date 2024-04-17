@@ -1,7 +1,7 @@
 from flask import Flask, session, request, send_from_directory, redirect, url_for
 from flask_migrate import Migrate
 from flask_cors import CORS
-from models import db, Student, Cohort, Signature
+from models import db, Student, Cohort, Signature, Instructor
 from flask_bcrypt import Bcrypt
 import os
 
@@ -110,26 +110,41 @@ def get_yearbook(cohort_id):
     except Exception as e:
         return {"error": str(e)}, 404
     
+from flask import jsonify
+
 @app.route("/api/student/<int:student_id>", methods=["GET"])
 def get_student(student_id):
-    student = Student.query.get(student_id)
-    if not student:
-        return {"error": "Student not found"}, 404
-    
-    return student.to_dict(), 200
+    try:
+        student = Student.query.get_or_404(student_id)
+        return student.to_dict(), 200
+    except Exception as e:
+        return {"error": str(e)}, 404
+
+@app.route("/api/instructor/<int:instructor_id>", methods=["GET"])
+def get_instructor(instructor_id):
+    instructor = Instructor.query.get(instructor_id)
+    if not instructor:
+        return {"error": "Instructor not found"}, 404
+    return {
+        "id": instructor.id,
+        "name": instructor.name,
+        "img": instructor.img,
+        "quote": instructor.quote
+    }, 200
+
 
 @app.route("/api/signatures", methods=["POST"])
 def create_signature():
     json_data = request.get_json()
     new_signature = Signature(
-        message=json_data.get('message'),
-        student_id=json_data.get('student_id'),
-        author=json_data.get('author')
+        message=json_data['message'],
+        student_id=json_data['student_id'],
+        author_id=json_data['author_id']  # Assuming author_id is sent correctly from the front-end
     )
     db.session.add(new_signature)
-    try:
+    try :
         db.session.commit()
-        return {"id": new_signature.id, "message": new_signature.message}, 201
+        return {"id": new_signature.id, "message": new_signature.message, "author": new_signature.author.name}, 201
     except Exception as e:
         db.session.rollback()
         return {"error": str(e)}, 500

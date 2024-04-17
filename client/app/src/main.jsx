@@ -9,6 +9,7 @@ import CohortList from './components/CohortList';
 import Yearbook from './components/Yearbook';
 import StudentDetails from './components/StudentDetails';
 import StudentCard from './components/StudentCard';
+import InstructorCard from './components/InstructorCard';
 import SignatureForm from './components/SignatureForm';
 import ErrorPage from './components/ErrorPage';
 import './App.css';
@@ -25,6 +26,7 @@ root.render(
             <Route path="cohorts" element={<CohortList />} />
             <Route path="yearbook/:cohortId" element={<Yearbook />} />
             <Route path="student-card/:studentId" element={<StudentCard />} />
+            <Route path="instructor-card/:instructorId" element={<InstructorCard />} />
             <Route path="student-details/:studentId" element={<StudentDetails />} />
             <Route path="signatures/new" element={<SignatureForm />} />
             <Route path="*" element={<ErrorPage />} />
