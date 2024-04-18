@@ -18,7 +18,7 @@ const Yearbook = () => {
                 const data = await response.json();
                 setCohortName(data.cohortName);
                 setStudents(data.students);
-                setInstructors(data.instructors);  // Set instructor data
+                setInstructors(data.instructors);  
             } catch (error) {
                 setError(error.message);
             } finally {

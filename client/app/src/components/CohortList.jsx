@@ -61,12 +61,12 @@ const CohortList = () => {
                 onChange={handleSearchChange}
                 className="search-input"
             />
-            {/* Sort by option */}
+
             <select value={sortBy} onChange={handleSortChange} className="sort-select">
                 <option value="start_date">Sort by Start Date (Newest to Oldest)</option>
-                {/* Add more sorting options if needed */}
+
             </select>
-            {/* Render cohorts in a table */}
+
             <table className="cohort-table">
                 <thead>
                     <tr>

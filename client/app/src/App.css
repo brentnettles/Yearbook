@@ -199,7 +199,7 @@ button:hover {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-start; /* Align content to start to prevent stretching */
+  justify-content: flex-start; 
   overflow: auto; /* Allow scrolling within the card if necessary */
   position: relative;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -211,10 +211,10 @@ button:hover {
 }
 
 .detail-card img {
-  width: 100%; /* Take full width of the card */
-  height: auto; /* Maintain aspect ratio */
-  max-height: 70vh; /* Limit max height to 50% of the viewport height */
-  object-fit: contain; /* Ensure the whole image is visible */
+  width: 100%; 
+  height: auto; 
+  max-height: 70vh; 
+  object-fit: contain; 
 }
 
 .detail-card div {
@@ -242,11 +242,11 @@ button:hover {
 }
 
 .detail-card h2 {
-  font-size: clamp(18px, 2.5vw, 22px); /* Adjusts between 18px and 22px depending on the viewport width */
+  font-size: clamp(18px, 2.5vw, 22px); 
 }
 
 .detail-card p {
-  font-size: clamp(14px, 1.5vw, 18px); /* Adjusts between 14px and 18px depending on the viewport width */
+  font-size: clamp(14px, 1.5vw, 18px); 
 }
 
 /* COHORT container */
@@ -492,12 +492,12 @@ a:hover {
 }
 
 .home-welcome-message {
-  color: #16a085; /* Teal color for the welcome message */
-  font-size: 20px; /* Size of the welcome message */
-  margin-top: 20px; /* Space above the welcome message */
+  color: #16a085; 
+  font-size: 20px; 
+  margin-top: 20px; 
 }
 
-/* Styles for each form group (label + input) */
+
 .form-group {
   margin-bottom: 20px;
 }
@@ -514,7 +514,7 @@ a:hover {
   padding: 8px;
   border: 1px solid #ccc;
   border-radius: 4px;
-  box-sizing: border-box; /* Include padding and border in the element's width and height */
+  box-sizing: border-box; 
 }
 
 /* Button styling */
@@ -535,7 +535,7 @@ a:hover {
 }
 
 
-/* Message styles for error and success messages */
+
 .error-message,
 .success-message {
   color: #d8000c;

@@ -26,6 +26,9 @@ class Student(db.Model, SerializerMixin):
     cohort = relationship("Cohort", back_populates="students")
     authored_signatures = relationship("Signature", foreign_keys="Signature.author_id", back_populates="author", lazy='dynamic')
     received_signatures = relationship("Signature", foreign_keys="Signature.student_id", back_populates="recipient", lazy='dynamic')
+    ### Testing lazy='dynamic' /  in defining a relationship, returns a query object instead of a list
+
+
 
     def to_dict(self):
         return {
@@ -63,7 +66,7 @@ class Cohort(db.Model, SerializerMixin):
             "location": self.location,
             "name": self.name,
             "course": self.course,
-            "instructors": [instructor.to_dict() for instructor in self.instructors]  # ensure Instructors have a to_dict method
+            "instructors": [instructor.to_dict() for instructor in self.instructors]  
         }
 
 

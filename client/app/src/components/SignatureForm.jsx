@@ -3,11 +3,11 @@ import { useUserContext } from './CreateUserContext';
 
 function SignatureForm({ studentId, onNewSignature }) {
     const [signature, setSignature] = useState('');
-    const { user } = useUserContext();  // Accessing user context
+    const { user } = useUserContext();  
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        const authorId = user ? user.id : null; // Assuming user.id is the logged-in student's ID
+        const authorId = user ? user.id : null; 
     
         try {
             const response = await fetch('http://127.0.0.1:5555/api/signatures', {
@@ -17,8 +17,8 @@ function SignatureForm({ studentId, onNewSignature }) {
                 },
                 body: JSON.stringify({
                     message: signature,
-                    student_id: studentId,  // ID of the student whose details page this is
-                    author_id: authorId      // ID of the logged-in student (author)
+                    student_id: studentId,  
+                    author_id: authorId      
                 }),
             });
     

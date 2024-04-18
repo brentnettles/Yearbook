@@ -5,7 +5,7 @@ from models import db, Student, Cohort, Signature, Instructor
 from flask_bcrypt import Bcrypt
 import os
 
-# Setup Flask app and specify the absolute path to the static folder dynamically
+
 app = Flask(__name__, static_folder=os.path.join(os.getcwd(), 'assets'))
 bcrypt = Bcrypt(app)
 
@@ -30,14 +30,14 @@ def login():
     student = Student.query.filter_by(email=email).first()
 
     if student:
-        session['user_id'] = student.id  # Store user ID in session
+        session['user_id'] = student.id  
         return {"message": "Login successful", "user": student.to_dict()}, 200
     else:
         return {"error": "User not found"}, 404
 
 @app.route("/api/logout", methods=["POST"])
 def logout():
-    session.pop('user_id', None)  # Clear the session
+    session.pop('user_id', None)  
     return {"message": "Logged out"}, 200
 
 @app.route("/")
@@ -139,12 +139,12 @@ def create_signature():
     new_signature = Signature(
         message=json_data['message'],
         student_id=json_data['student_id'],
-        author_id=json_data['author_id']  # Assuming author_id is sent correctly from the front-end
+        author_id=json_data['author_id']  
     )
     db.session.add(new_signature)
     try:
         db.session.commit()
-        return new_signature.to_dict(), 201  # Use jsonify if to_dict returns a dictionary
+        return new_signature.to_dict(), 201  
     except Exception as e:
         db.session.rollback()
         return {"error": str(e)}, 500

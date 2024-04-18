@@ -14,3 +14,4 @@ $ export FLASK_DEBUG=1
 Actual data and asset only for Cohort01 / se012924
 
 seed.py has more play data but very low res student images
+

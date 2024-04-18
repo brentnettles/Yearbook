@@ -8,7 +8,6 @@ const App = () => {
   const navigate = useNavigate();
 
   React.useEffect(() => {
-      // Redirect to login if no user is found
       if (!user) {
           navigate('/login');
       }
@@ -18,7 +17,7 @@ const App = () => {
       <>
           <NavBar />
           {user ? (
-              <Outlet />  // This should render the nested routes when user is present
+              <Outlet /> 
           ) : (
               <p>Please log in to view this page.</p>
           )}

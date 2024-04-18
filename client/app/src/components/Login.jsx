@@ -11,7 +11,7 @@ const Login = () => {
     const { user, setUser } = useUserContext();
 
     useEffect(() => {
-        // Redirect if already logged in
+
         if (user) {
             navigate('/');
         }
