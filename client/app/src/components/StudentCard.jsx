@@ -44,7 +44,7 @@ const StudentCard = () => {
                 <img src={`http://127.0.0.1:5555${student.img}`} alt={student.name} />
                 <div>
                     <h2>{student.name}</h2>
-                    <p> "{student.quote}"</p>
+                    <p> {student.quote}</p>
                 </div>
             </div>
         </div>

@@ -258,7 +258,7 @@ button:hover {
 .details-container {
   display: flex;
   align-items: flex-start;
-  padding: 20px;
+  padding: 10px;
   padding-top: 120px;
   background-color: #fff; /* Clean white background */
   height: 100vh; /* Full viewport height */
@@ -276,13 +276,13 @@ button:hover {
 .student-image-container {
   flex: 1; /* Allows it to grow with the container */
   text-align: center;
-  padding: 20px;
-  max-width: 65%; /* Controls maximum width */
+  padding: 10px;
+  max-width: 75%; /* Controls maximum width */
 }
 
 .student-image-container img {
   height: auto;
-  max-height: 65vh; /* Restricts image height */
+  max-height: 75vh; /* Restricts image height */
   max-width: 100%; /* Ensures the image is responsive and fits within the container */
   border-radius: 8px; /* Soft rounded corners */
   object-fit: cover; /* Ensures the image covers the area without distortion */
@@ -305,7 +305,7 @@ button:hover {
   width: 35%; /* Adjust width as needed */
   display: flex;
   flex-direction: column;
-  padding: 20px;
+  padding: 10px;
   margin-left: 20px; /* Space between image and text */
   overflow-y: auto; /* Allows scrolling if content is too long */
 }

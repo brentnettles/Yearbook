@@ -41,12 +41,13 @@ const StudentDetails = () => {
             <button className="back-button" onClick={() => navigate(`/yearbook/${student.cohort_id}`)}>Back to Yearbook</button>
             <div className="student-image-container">
                 <img src={`http://127.0.0.1:5555${student.img}`} alt={student.name} />
+                <p></p>
                 <a href={`${student.img}`} download={`${student.name}_Yearbook_Photo.jpg`}>Download Photo</a>
             </div>
             <div className="signatures-container">
                 <div>
                     <h2>{student.name}</h2>
-                    <p>"{student.quote}"</p>
+                    <p>{student.quote}</p>
                 </div>
                 <div className="signatures-list">
     <h3>Signatures:</h3>
