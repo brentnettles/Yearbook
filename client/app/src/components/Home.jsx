@@ -10,7 +10,7 @@ const Home = () => {
         <img src='/images/logo.jpeg' alt='School Logo' className='home-logo'/>
       </div>
       <h2 className='home-title'>Flatiron School</h2>
-      <h3 className='home-subtitle'>Student Year Books</h3>
+      <h3 className='home-subtitle'>Student Yearbooks</h3>
       {user ? <p className='home-welcome-message'>Welcome {user.name}!</p> : <p>Please log in to view this page.</p>}
     </div>
   );
