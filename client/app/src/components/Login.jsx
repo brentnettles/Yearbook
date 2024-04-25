@@ -56,20 +56,21 @@ const Login = () => {
 
     return (
         <form onSubmit={handleSubmit} className="login-form">
-              <div className="logo-container">
-                <img src="/images/logo.jpeg" alt="School Logo" className="login-logo"/>
-            </div>
-            <div className="form-group">
-                <label htmlFor="email">Sign in using your school email address: <br></br> </label>
-                <input
-                    type="email"
-                    id="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    required
-                    className="form-control"
-                />
-            </div>
+            <div className="logo-container">
+            <img src="/images/logo.jpeg" alt="School Logo" className="login-logo"/>
+        </div>
+        <div className="form-group">
+            <label htmlFor="email">Sign in using your school email address: <br></br> </label>
+            <input
+        type="email"
+        id="email"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+        required
+        className="form-control"
+    />
+</div>
+
             <button type="submit" className="btn login-btn">Login</button>
             {error && <p className="error-message">{error}</p>}
             {msg && <p className="success-message">{msg}</p>}

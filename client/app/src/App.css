@@ -68,34 +68,37 @@ button:hover {
   z-index: 1000; /* Ensure it's above other content */
 }
 
+
+
 .navbar-menu-toggle {
   display: none; /* Hide by default */
 }
 
 .navbar-menu-icon {
-  display: block; /* Display as block element */
+  display: block;
+  padding-left: 10px; /* Display as block element */
   cursor: pointer; /* Show pointer cursor */
   font-size: 3rem; /* Adjust as needed */
-  color: skyblue
+  color: skyblue;
 }
 
 .navbar-menu {
   display: none; /* Hide by default */
   position: absolute; /* Absolute positioning */
-
   top: calc(100% + 10px); /* Align below navbar with padding */
   left: 0; /* Align to left of navbar */
   background-color: #bfbbbb; /* Background color for menu */
   padding: 20px; /* Padding for menu */
-  padding-left: -20px; /* Padding for menu */
-  transition: transform 0.5s ease-in-out; /* Slow and smooth transition for opening/closing */
   transform: translateY(-100%); /* Initially hidden above navbar */
+  transition: transform 0.5s ease-in-out; /* Slow and smooth transition for opening/closing */
 }
 
 .navbar-menu.open {
+  padding-left: 40px;
   display: block; /* Show when menu is open */
   transform: translateY(0); /* Slide down to show */
 }
+
 
 .navbar-menu-items {
   display: flex; /* Display as flex */
@@ -472,7 +475,17 @@ a:hover {
 }
 
 .logo-container {
+  padding-top: 50px;
+  display: flex; /* Enable flexbox */
+  justify-content: center; /* Center logo horizontally */
+  align-items: center; /* Center logo vertically */
+  flex-direction: column; /* Stack items vertically */
   margin-bottom: 20px; /* Space below the logo */
+}
+
+.login-logo {
+  width: 150px; /* Fixed width for the logo */
+  height: auto; /* Automatic height to maintain aspect ratio */
 }
 
 .home-logo {
@@ -499,6 +512,7 @@ a:hover {
 
 
 .form-group {
+  font-size: 1.2rem;
   margin-bottom: 20px;
 }
 
