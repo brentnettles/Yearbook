@@ -1,5 +1,5 @@
 Site overview :
-Fullstack application with Flask / SQLite3 db & Javascript React App
+Fullstack application with Python / Flask / SQLite3 backend & JS / React frontend. 
 
 I took portraits of classmates at Flatiron School and made an interactive yearbook.
 
@@ -20,7 +20,7 @@ I took portraits of classmates at Flatiron School and made an interactive yearbo
               $ python app.py
 
               Frontend - run
-              $npm run dev
+              $ npm run dev
 
               Restricted data to "Students"
               Login w/ email 1@0.com
