@@ -1,47 +1,69 @@
-Site overview :
-Fullstack application with Flask / SQLite3 db & Javascript React App
+# Flatiron Yearbook
 
-I took portraits of classmates at Flatiron School and made an interactive yearbook.
+**Flatiron Yearbook** is an interactive digital yearbook I created during a 7-day solo sprint while studying at Flatiron School's Software Engineering Bootcamp. As a photographer, I took the opportunity to photograph my cohort mates, providing them with updated professional portraits and serve as a personal time capsule.
 
-- Brent Nettles
-  04/17/24
+## To Run
 
-              # to run
-              Flask / vite / react router v6
+Navigate to the project directory and set up the environment:
 
-              npm install
+pipenv install
+pipenv shell
 
-              * Server  http://127.0.0.1:5555
-              * Client/App  http://localhost:5173/
+cd yearbook/backend
+export FLASK_APP=app.py
+export FLASK_RUN_PORT=5555
+flask run
 
-              start server - run
-              $ export FLASK_APP=app.py
-              $ export FLASK_RUN_PORT=5555
-              $ python app.py
 
-              Frontend - run
-              $npm run dev
+Open a second terminal for the frontend:
 
-              Restricted data to "Students"
-              Login w/ email 1@0.com
+cd yearbook/client/app
+npm install
+npm run dev
 
-              **Actual data and asset only for Cohort01 / se012924***
 
-              seed.py has more play data but very low res student images
+Visit: [http://localhost:5173/](http://localhost:5173/) to see the app in action.
 
-This was a one week solo development project. The projects goals were provided and the concept and execution was up to the developer. I hope you like it.
+## Goals
 
-\*\*\*Create a full-stack application with a powerful backend framework. The major learning goals of project include;
+- **Create an engaging digital yearbook** for my cohort at Flatiron School.
+- **Provide a platform** where students can not only see each other's portraits but also interact through digital signatures.
+- **Develop full CRUD capabilities** for at least one resource, with create and read actions for each resource.
 
-Use a Flask API backend with a React frontend.
-Have at least three models on the backend, that include the following:
-At least two one-to-many relationships.
-At least one reciprocal many-to-many relationship.
-The many-to-many association model/table must have a user submittable attribute, i.e. an attribute aside from the foreign keys.
-Full CRUD actions for at least one resource.
-Minimum of create and read actions for EACH resource.
+## Features
 
-At least one data type validation.
-At least one string/number format validation.
-Have at least three different client-side routes using React Router. Be sure to include a nav bar or other UI element that allows users to navigate between routes.
-Connect the client and server using fetch().
+- **Interactive Yearbook**: Browse through student and instructor profiles with ease.
+- **Signatures**: Students can leave digital signatures on each other's profiles, enhancing the interactive experience.
+- **Authentication**: Restricted access to ensure that only cohort members can log in and interact.
+
+## Notes
+
+- The project is built with real data limited to "Students" of Cohort01 / se012924. Additional low-resolution images are used for testing and demonstration.
+- All photographs were taken and edited by me, adding a personal touch and ensuring high-quality portraits for my peers.
+
+## Tech Stack
+
+### Frontend
+
+- **React JS**: for building the user interface.
+- **React Router v6**: for navigation between client-side routes.
+
+### Backend
+
+- **Flask**: as the backend framework.
+- **SQLite3**: for the database to store user and interaction data.
+- **Flask Migrate**: for handling database migrations.
+
+## Database Schema
+
+- **Student**: Contains details like name, image, quote, and associated cohort.
+- **Cohort**: Represents a group of students and their instructors.
+- **Signature**: Manages the signatures students leave on each other's profiles.
+
+## Example API Endpoints
+
+- `GET /api/yearbook/{cohort_id}`: Fetch all students and instructors related to a specific cohort.
+- `POST /api/login`: Authenticate users by their email.
+- `POST /api/signatures`: Allow students to submit signatures on other students' profiles.
+
+This project was not only a technical challenge but also a way to contribute something meaningful to my cohort's experience at Flatiron School.

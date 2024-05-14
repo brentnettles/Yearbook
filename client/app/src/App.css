@@ -85,22 +85,25 @@ button:hover {
 .navbar-menu {
   display: none; /* Hide by default */
   position: absolute; /* Absolute positioning */
-  top: calc(100% + 10px); /* Align below navbar with padding */
+
   left: 0; /* Align to left of navbar */
-  background-color: #bfbbbb; /* Background color for menu */
+
   padding: 20px; /* Padding for menu */
   transform: translateY(-100%); /* Initially hidden above navbar */
   transition: transform 0.5s ease-in-out; /* Slow and smooth transition for opening/closing */
 }
 
 .navbar-menu.open {
-  padding-left: 40px;
+  
+  padding-left: 20px;
   display: block; /* Show when menu is open */
   transform: translateY(0); /* Slide down to show */
 }
 
 
 .navbar-menu-items {
+  background-color: #bfbbbb53;
+  padding: 20px;
   display: flex; /* Display as flex */
   flex-direction: column; /* Stack items vertically */
 }
@@ -108,8 +111,8 @@ button:hover {
 .navbar-menu-item {
   color: #8d7474; /* Text color for menu items */
   text-decoration: none; /* Remove default link decoration */
-  padding: 10px 0; /* Padding for menu items */
-  transition: background-color 0.3s; /* Smooth transition for hover effect */
+  padding: 5px 0; 
+
 }
 
 .navbar-menu-item:hover {
