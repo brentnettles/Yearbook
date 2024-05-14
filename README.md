@@ -1,13 +1,16 @@
 # Flatiron Yearbook
 
-**Flatiron Yearbook** is an interactive digital yearbook I created during a 7-day solo sprint while studying at Flatiron School's Software Engineering Bootcamp. As a photographer, I took the opportunity to photograph my cohort mates, providing them with updated professional portraits and serve as a personal time capsule.
+**Flatiron Yearbook** is an interactive digital yearbook I created during a 7-day solo sprint while studying at Flatiron School's Software Engineering Bootcamp. As a photographer, I took the opportunity to photograph my cohort mates, providing them with updated professional portraits and serve as a time capsule.
+
+### Site Demo Video [here](https://www.dropbox.com/scl/fi/hzz3v70mr3pyzbhclv0m9/Yearbook_Site-Demo.mp4?rlkey=o62oa8zvhiiclvrv5ivn5jkep&dl=0).
+
 
 ## To Run
 
 Navigate to the project directory and set up the environment:
 
-pipenv install
-pipenv shell
+pipenv install 
+pipenv shell 
 
 cd yearbook/backend
 export FLASK_APP=app.py
@@ -67,3 +70,4 @@ Visit: [http://localhost:5173/](http://localhost:5173/) to see the app in action
 - `POST /api/signatures`: Allow students to submit signatures on other students' profiles.
 
 This project was not only a technical challenge but also a way to contribute something meaningful to my cohort's experience at Flatiron School.
+
